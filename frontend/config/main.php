@@ -25,6 +25,18 @@ return [
                 ],
             ],
         ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+
+            'rules' => [
+                'gii' => 'gii',
+                '<cmd:\w+>/<action:\w+>'=>'main/index',
+                '<cmd:\w+>/<action:\w+>/<state:\w+>'=>'main/index',
+                '<cmd:\w+>/<action:\w+>/<state:\w+>/<sid:\w+>'=>'main/index',
+            ]
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
