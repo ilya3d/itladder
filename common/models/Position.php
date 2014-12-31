@@ -13,8 +13,8 @@ use Yii;
  *
  * @property Stage $stage
  * @property Grid $grid
- * @property Resource2position[] $resource2positions
- * @property User2position[] $user2positions
+ * @property Resource[] $resources
+ * @property User[] $users
  */
 class Position extends \yii\db\ActiveRecord
 {
@@ -68,16 +68,21 @@ class Position extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResource2positions()
+    public function getResources()
     {
-        return $this->hasMany(Resource2position::className(), ['position_id' => 'id']);
+        return $this->hasMany(Resource::className(), ['id' => 'resource_id'])->viaTable('resource2position', ['position_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser2positions()
+    public function getUsers()
     {
-        return $this->hasMany(User2position::className(), ['position_id' => 'id']);
+        return $this
+            ->hasMany(User::className(), ['id' => 'user_id'])
+            ->viaTable('user2position', ['position_id' => 'id'])
+            ->where(['status'=>User2position::STATUS_COMPLETE])
+            ;
     }
+
 }

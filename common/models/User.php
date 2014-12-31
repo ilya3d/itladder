@@ -196,4 +196,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPositions()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user2position', ['position_id' => 'id']);
+    }
+
+
 }
