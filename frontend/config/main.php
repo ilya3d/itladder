@@ -32,9 +32,8 @@ return [
 
             'rules' => [
                 'gii' => 'gii',
-                '<cmd:\w+>/<action:\w+>'=>'main/index',
-                '<cmd:\w+>/<action:\w+>/<state:\w+>'=>'main/index',
-                '<cmd:\w+>/<action:\w+>/<state:\w+>/<sid:\w+>'=>'main/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
             ]
         ],
         'errorHandler' => [
