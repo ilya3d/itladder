@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property integer $grid_id
  * @property integer $stage_id
+ * @property integer $next_position
  *
  * @property Stage $stage
  * @property Grid $grid
