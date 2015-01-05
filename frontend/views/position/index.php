@@ -1,5 +1,6 @@
 <?php
 
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -26,9 +27,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'grid_id',
-            'stage_id',
-            'next_position',
+            //'grid_id',
+            [
+              'label'=>'Grid',
+              'value'=>function($searchModel){
+                  return $searchModel->grid->name;
+              }
+            ],
+            [
+                'label'=>'Stage',
+                'value'=>function($searchModel){
+                    return $searchModel->stage->name;
+                }
+            ],
+            [
+                'label'=>'Next',
+                'value'=>function($searchModel){
+
+                    if ($searchModel->next){
+                        return $searchModel->next->stage->name;
+                    }
+
+                    //return 1;
+
+                    //return $searchModel->next->stage->name;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
