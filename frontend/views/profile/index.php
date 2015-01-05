@@ -2,8 +2,10 @@
 /**
  * @var $this yii\web\View
  * @var $user \common\models\User
+ * @var $positions \common\models\User2position
 */
-var_dump($user->getPositionList())
+//var_dump($user->positions)
+//var_dump($resource)
 ?>
 
 <div class="container">
@@ -63,7 +65,7 @@ var_dump($user->getPositionList())
 
                     <div class="list-group">
 
-                        <? foreach($user->getPositionList() as $item): ?>
+                        <? foreach($positions as $item): ?>
                         <div class="list-group-item">
                             Stage: <?= $item->position_id ?> | <?= Yii::$app->getFormatter()->asDatetime($item->date_change, 'php:d.m.Y') ?>
                         </div>
@@ -75,20 +77,16 @@ var_dump($user->getPositionList())
 
                             <div class="list-group">
 
-                                <div class="list-group-item">
-                                    res 1  (2/100)
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
+                                <? foreach($resource as $item): ?>
+                                    <div class="list-group-item">
+                                        <?= $item->resource->name ?> (<?= $item->resource2user->value ?>/<?= $item->value ?>)
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $item->resource2user->value ?>" aria-valuemin="0" aria-valuemax="<?= $item->value ?>" style="width: <?= $item->resource2user->value*100/$item->value ?>%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
                                         </div>
                                     </div>
-
-                                </div>
-
-                                <div class="list-group-item">
-                                    res 2
-                                </div>
+                                <? endforeach; ?>
 
                             </div>
 

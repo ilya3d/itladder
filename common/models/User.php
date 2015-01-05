@@ -253,12 +253,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     }
 
-    public function getPositionList()
-    {
-        // todo position list
-        return User2position::find()->where(['user_id'=>$this->id])->orderBy(['date_change'=>'ASC'])->all();
-    }
-
     public function getProfession(){
         return $this->hasOne(Profession::className(), ['id'=>'profession_id']);
     }

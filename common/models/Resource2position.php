@@ -62,4 +62,12 @@ class Resource2position extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Resource::className(), ['id' => 'resource_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResource2user()
+    {
+        return $this->hasOne(Resource2user::className(), ['resource_id' => 'resource_id']);
+    }
 }

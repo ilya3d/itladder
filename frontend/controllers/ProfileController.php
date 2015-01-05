@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use common\models\Grid;
 use common\models\Position;
 use common\models\Profession;
+use common\models\Resource2position;
+use common\models\Resource2user;
 use common\models\search\UserSearch;
 use common\models\Stage;
 use common\models\User;
@@ -21,7 +23,19 @@ class ProfileController extends \yii\web\Controller
 
         if (!$user) throw new NotFoundHttpException('Not found user');
 
-        return $this->render('index',['user'=>$user]);
+        // todo positions and resource
+        $positions = User2position::find()->where(['user_id'=>$user->id])->orderBy(['date_change'=>'ASC'])->all();
+
+        $userCurPosition = $user->getCurrentPosition()->id;
+
+        $resource = Resource2position::find()
+            ->with( 'resource' )
+            ->with( 'resource2user' )
+            ->where(['position_id'=>$userCurPosition])
+            ->all();
+
+
+        return $this->render('index',['user'=>$user,'positions'=>$positions,'resource'=>$resource]);
     }
 
     public function generatePosition(){
