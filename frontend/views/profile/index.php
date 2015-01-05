@@ -3,9 +3,8 @@
  * @var $this yii\web\View
  * @var $user \common\models\User
  * @var $positions \common\models\User2position
+ * @var $resource \common\models\Resource2position
 */
-//var_dump($user->positions)
-//var_dump($resource)
 ?>
 
 <div class="container">
@@ -45,6 +44,14 @@
                     <td>Skype</td>
                     <td><?= $user->skype ?></td>
                 </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td><?= $user->email ?></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><?= $user->address ?></td>
+                </tr>
             </table>
 
         </div>
@@ -53,15 +60,15 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Position skill</a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profession skill</a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Events</a></li>
-                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Ather</a></li>
+                <li role="presentation" class="active"><a href="#ladder" aria-controls="ladder" role="tab" data-toggle="tab">Position skill</a></li>
+                <li role="presentation"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Profession skill</a></li>
+                <li role="presentation"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
+                <li role="presentation"><a href="#other" aria-controls="other" role="tab" data-toggle="tab">Other</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home">
+                <div role="tabpanel" class="tab-pane active" id="ladder">
 
                     <div class="list-group">
 
@@ -95,9 +102,9 @@
                     </div>
 
                 </div>
-                <div role="tabpanel" class="tab-pane" id="profile">.2..</div>
-                <div role="tabpanel" class="tab-pane" id="messages">.3..</div>
-                <div role="tabpanel" class="tab-pane" id="settings">.4..</div>
+                <div role="tabpanel" class="tab-pane" id="skills">.2..</div>
+                <div role="tabpanel" class="tab-pane" id="events">.3..</div>
+                <div role="tabpanel" class="tab-pane" id="other">.4..</div>
             </div>
 
         </div>
