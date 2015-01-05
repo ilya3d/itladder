@@ -32,7 +32,7 @@ return [
 
             'rules' => [
                 'gii' => 'gii',
-                'profile/<user:\w+>' => 'profile/index',
+                'profile/<user:[\w\.]+>' => 'profile/index',
                 'list' => 'profile/list',
                 'generate' => 'profile/generate',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

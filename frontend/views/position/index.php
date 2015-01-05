@@ -43,14 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label'=>'Next',
                 'value'=>function($searchModel){
-
                     if ($searchModel->next){
                         return $searchModel->next->stage->name;
                     }
-
-                    //return 1;
-
-                    //return $searchModel->next->stage->name;
                 }
             ],
 

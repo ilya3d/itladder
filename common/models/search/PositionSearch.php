@@ -45,6 +45,7 @@ class PositionSearch extends Position
             ->with('grid')
             ->with('stage')
             ->with('next')
+            ->with('next.stage')
         ;
 
         $dataProvider = new ActiveDataProvider([

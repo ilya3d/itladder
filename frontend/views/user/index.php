@@ -27,7 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
-            'login',
+            [
+                'label'=>'Login',
+                'format' => 'html',
+                'value'=>function($searchModel){
+                    return Html::a($searchModel->login, \yii\helpers\Url::toRoute('profile/'.$searchModel->login) );
+                }
+            ],
             //'auth_key',
             //'password_hash',
             // 'password_reset_token',
