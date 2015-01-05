@@ -67,13 +67,13 @@
 
                         <? foreach($positions as $item): ?>
                         <div class="list-group-item">
-                            Stage: <?= $item->position_id ?> | <?= Yii::$app->getFormatter()->asDatetime($item->date_change, 'php:d.m.Y') ?>
+                            <strong><?= $item->position->stage->name ?></strong> | <?= Yii::$app->getFormatter()->asDatetime($item->date_change, 'php:d.m.Y') ?>
                         </div>
                         <? endforeach; ?>
 
                         <div class="list-group-item">
 
-                            <h4 class="list-group-item-heading">Master3</h4>
+                            <h4 class="list-group-item-heading"><?= $user->getCurrentPosition()->stage->name ?></h4>
 
                             <div class="list-group">
 

@@ -24,7 +24,11 @@ class ProfileController extends \yii\web\Controller
         if (!$user) throw new NotFoundHttpException('Not found user');
 
         // todo positions and resource
-        $positions = User2position::find()->where(['user_id'=>$user->id])->orderBy(['date_change'=>'ASC'])->all();
+        $positions = User2position::find()
+            ->with( 'position' )
+            ->where(['user_id'=>$user->id])
+            ->orderBy(['date_change'=>'ASC'])
+            ->all();
 
         $userCurPosition = $user->getCurrentPosition()->id;
 
