@@ -16,8 +16,8 @@ class ProfileController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $username =  \Yii::$app->request->getQueryParam('user');
-        $user = User::findByUsername($username);
+        $login =  \Yii::$app->request->getQueryParam('user');
+        $user = User::findByLogin($login);
 
         if (!$user) throw new NotFoundHttpException('Not found user');
 
@@ -77,6 +77,8 @@ class ProfileController extends \yii\web\Controller
 
             $profession = Profession::findOne(['id' => rand(1, 5)]);
             $user->title_position = $profession->name;
+            $user->status = User::STATUS_ACTIVE;
+
             $user->birthday = $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-20 years')->format('U');
             $user->save();
 
