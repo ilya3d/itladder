@@ -32,6 +32,7 @@ use yii\web\IdentityInterface;
  * @property string $password write-only password
  *
  * @property Profession $profession
+ * @property Position[] $positions
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -217,6 +218,28 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPositions()
     {
         return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user2position', ['position_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    /*
+    public function getCurrentPosition()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user2position', ['position_id' => 'id'])->andWhere(['user2position.status'=>User2position::STATUS_COMPLETE])->orderBy('user2position.date_change');
+    }
+    */
+
+    /**
+     * @return Position static
+     */
+    public function getCurrentPosition()
+    {
+        /** @var User2position $user2pos */
+        $user2pos =  User2position::find(['user_id'=>$this->id,'status'=>User2position::STATUS_COMPLETE])->orderBy(['date_change'=>'ASC'])->limit(1)->one();
+        return Position::findOne(['id'=>$user2pos->position_id]);
+
+
     }
 
     public function getProfession(){

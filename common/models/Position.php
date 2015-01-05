@@ -34,7 +34,7 @@ class Position extends \yii\db\ActiveRecord
     {
         return [
             [['grid_id', 'stage_id'], 'required'],
-            [['grid_id', 'stage_id'], 'integer']
+            [['grid_id', 'stage_id','next_position'], 'integer']
         ];
     }
 

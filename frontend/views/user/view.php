@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -47,6 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label'=>'Birthday',
                 'value'=>  Yii::$app->getFormatter()->asDatetime($model->birthday, 'php:d.m.Y')
+            ],
+            [
+                'label'=>'Current Position',
+                'value'=>$model->getCurrentPosition()->stage->name,
+            ],
+            [
+                'label'=>'Next Position',
+                'value'=>$model->getCurrentPosition()->stage->name,
             ],
             'status',
             'created_at',

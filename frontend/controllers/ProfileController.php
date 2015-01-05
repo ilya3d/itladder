@@ -26,6 +26,9 @@ class ProfileController extends \yii\web\Controller
 
     public function generatePosition(){
 
+        User2position::deleteAll();
+        Position::deleteAll();
+
         $grids = Grid::find()->all();
         $stages = Stage::find()->all();
 
@@ -33,16 +36,20 @@ class ProfileController extends \yii\web\Controller
 
         foreach($grids as $grid){
 
+            $position = new Position();
+
             foreach ($stages as $stage) {
-
                 $position = new Position();
-
                 $position->grid_id = $grid->id;
                 $position->stage_id = $stage->id;
                 $position->id = $i++;
-
+                $position->next_position = $i;
                 $position->save();
             }
+
+            $position->next_position = 0;
+            $position->save();
+
         }
 
 
@@ -51,7 +58,8 @@ class ProfileController extends \yii\web\Controller
     public function actionGenerate()
     {
 
-        //$this->generatePosition();
+        $this->generatePosition();
+        User::deleteAll();
 
         $faker = Factory::create();
         for ($i=1; $i<50; $i++) {
@@ -68,12 +76,11 @@ class ProfileController extends \yii\web\Controller
 
 
             $profession = Profession::findOne(['id' => rand(1, 5)]);
+            $user->title_position = $profession->name;
+            $user->birthday = $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-20 years')->format('U');
+            $user->save();
 
             $user->link('profession', $profession);
-
-            $user->birthday = $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-20 years')->format('U');
-
-            $user->save();
 
 
             $user2pos = new User2position();
