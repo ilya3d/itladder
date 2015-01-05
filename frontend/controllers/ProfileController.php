@@ -29,7 +29,11 @@ class ProfileController extends \yii\web\Controller
         $userCurPosition = $user->getCurrentPosition()->id;
 
         $resource = Resource2position::find()
-            ->with( 'resource' )
+            ->with( ['resource',
+                'resource2user' => function ($query) use ($user) {
+                    $query->andWhere( ['user_id' => $user->id] );
+                }
+            ] )
             ->with( 'resource2user' )
             ->where(['position_id'=>$userCurPosition])
             ->all();
