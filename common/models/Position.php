@@ -16,6 +16,7 @@ use Yii;
  * @property Grid $grid
  * @property Resource[] $resources
  * @property User[] $users
+ * @property Position $next
  */
 class Position extends \yii\db\ActiveRecord
 {
@@ -64,6 +65,14 @@ class Position extends \yii\db\ActiveRecord
     public function getGrid()
     {
         return $this->hasOne(Grid::className(), ['id' => 'grid_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNext()
+    {
+        return $this->hasOne(Position::className(), ['id' => 'next_position']);
     }
 
     /**

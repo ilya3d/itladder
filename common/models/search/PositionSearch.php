@@ -9,6 +9,7 @@ use common\models\Position;
 
 /**
  * PositionSearch represents the model behind the search form about `common\models\Position`.
+ * @var string grid_name
  */
 class PositionSearch extends Position
 {
@@ -40,7 +41,11 @@ class PositionSearch extends Position
      */
     public function search($params)
     {
-        $query = Position::find();
+        $query = Position::find()
+            ->with('grid')
+            ->with('stage')
+            ->with('next')
+        ;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
