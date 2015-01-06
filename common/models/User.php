@@ -1,7 +1,6 @@
 <?php
 namespace common\models;
 
-use Faker\Provider\zh_TW\DateTime;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -68,8 +67,6 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-
-
     /**
      * @inheritdoc
      */
@@ -80,7 +77,6 @@ class User extends ActiveRecord implements IdentityInterface
             [['profession_id','group_id'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_NEW],
             ['status', 'in', 'range' => [self::STATUS_DISABLED, self::STATUS_ACTIVE, self::STATUS_NEW]],
-            //['birthday', 'default',  ]
         ];
     }
 
@@ -271,6 +267,12 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getGroup(){
         return $this->hasOne(Group::className(), ['id'=>'group_id']);
+    }
+
+
+    public function getResource2user()
+    {
+        return $this->hasMany(Resource2user::className(), ['user_id' => 'id']);
     }
 
 }
