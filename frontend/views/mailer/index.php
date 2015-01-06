@@ -1,4 +1,7 @@
 <?php
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
 /**
  * @var $this yii\web\View
  * @var $users \common\models\User[]
@@ -9,32 +12,31 @@
 
     <h1>Mailer</h1>
 
-    <form class="form-horizontal">
+    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
         <div class="form-group">
             <div class="col-md-4">
-                <label class="sr-only" for="inpTheme">Theme</label>
-                <input type="text" class="form-control" id="inpTheme" placeholder="Enter theme">
+                <?= $form->field($model, 'subject') ?>
             </div>
             <div class="col-md-4">
-                <label class="sr-only" for="inpFrom">From</label>
-                <input type="email" class="form-control" id="inpFrom" placeholder="Enter from">
+                <?= $form->field($model, 'email') ?>
             </div>
             <div class="col-md-4 text-right">
-                <button type="submit" class="btn btn-success">Send</button>
+                <?= Html::submitButton('Send', ['class' => 'btn btn-success', 'name' => 'send-button']) ?>
             </div>
         </div>
 
 
         <div class="form-group">
             <div class="col-md-12">
-            <textarea class="form-control" rows="6"></textarea>
+                <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
             </div>
         </div>
-    </form>
+    <?php ActiveForm::end(); ?>
 
         <hr>
 
+    <!-- todo remove to widget -->
         <div class="row">
             <div class="col-md-4">
                 <select class="form-control">
