@@ -82,6 +82,10 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function load($data, $formName = null) {
 
+        // @todo разобратся как правильно грузить модельку
+        if (isset($data['profession_id']))
+            $this->setAttribute('profession',Profession::findOne(['id'=>$data['profession_id']]));
+
         if (isset($data['User']['birthday']))
             $this->birthday = \DateTime::createFromFormat('d.m.Y',$data['User']['birthday'])->format('U');
 
