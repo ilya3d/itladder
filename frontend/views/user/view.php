@@ -40,6 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             'title_position',
             [
+                'label'=>'Group',
+                'value'=>($model->group)?$model->group->name:''
+            ],
+            [
                 'label'=>'Profession',
                 'value'=> $model->profession->name
             ],
@@ -51,14 +55,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Current Position',
                 'value'=>$model->getCurrentPosition()->stage->name,
             ],
-            [
-                'label'=>'Next Position',
-                'value'=>$model->getCurrentPosition()->stage->name,
-            ],
-            'status',
-            'created_at',
-            'register_at',
-            'updated_at',
+            //'status',
+            //'created_at',
+            //'register_at',
+            //'updated_at',
         ],
     ]) ?>
 

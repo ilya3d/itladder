@@ -35,6 +35,7 @@ AppAsset::register($this);
             $menuItems = [
                 ['label' => 'Users', 'url' => ['/user/index']],
                 ['label' => 'Grid', 'url' => ['/grid/index']],
+                ['label' => 'Group', 'url' => ['/group/index']],
                 ['label' => 'Profession', 'url' => ['/profession/index']],
                 ['label' => 'Stage', 'url' => ['/stage/index']],
                 ['label' => 'Position', 'url' => ['/position/index']],
