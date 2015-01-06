@@ -17,6 +17,7 @@ use Yii;
  * @property Resource[] $resources
  * @property User[] $users
  * @property Position $next
+ * @property Resource2position $resources2position
  */
 class Position extends \yii\db\ActiveRecord
 {
@@ -82,6 +83,16 @@ class Position extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Resource::className(), ['id' => 'resource_id'])->viaTable('resource2position', ['position_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResources2position()
+    {
+        return $this->hasMany(Resource2position::className(), ['position_id' => 'id']);
+    }
+
+
 
     /**
      * @return \yii\db\ActiveQuery
