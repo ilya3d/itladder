@@ -12,6 +12,7 @@ use common\models\Stage;
 use common\models\User;
 use common\models\User2position;
 use Faker\Factory;
+use yii\db\Query;
 use yii\web\NotFoundHttpException;
 
 class ProfileController extends \yii\web\Controller
@@ -19,6 +20,7 @@ class ProfileController extends \yii\web\Controller
     public function actionIndex()
     {
         $login =  \Yii::$app->request->getQueryParam('user');
+        /** @var User $user */
         $user = User::findByLogin($login);
 
         if (!$user) throw new NotFoundHttpException('Not found user');
@@ -35,6 +37,7 @@ class ProfileController extends \yii\web\Controller
         $resource = Resource2position::find()
             ->with( ['resource',
                 'resource2user' => function ($query) use ($user) {
+                    /** @var Query $query */
                     $query->andWhere( ['user_id' => $user->id] );
                 }
             ] )

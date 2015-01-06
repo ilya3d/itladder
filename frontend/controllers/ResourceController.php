@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Position;
-use common\models\search\PositionSearch;
+use common\models\Resource;
+use common\models\search\ResourceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PositionController implements the CRUD actions for Position model.
+ * ResourceController implements the CRUD actions for Resource model.
  */
-class PositionController extends Controller
+class ResourceController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class PositionController extends Controller
     }
 
     /**
-     * Lists all Position models.
+     * Lists all Resource models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PositionSearch();
+        $searchModel = new ResourceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class PositionController extends Controller
     }
 
     /**
-     * Displays a single Position model.
+     * Displays a single Resource model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class PositionController extends Controller
     }
 
     /**
-     * Creates a new Position model.
+     * Creates a new Resource model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Position();
+        $model = new Resource();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -71,15 +71,8 @@ class PositionController extends Controller
         }
     }
 
-    public function actionRules($id)
-    {
-        return $this->render('rules', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
     /**
-     * Updates an existing Position model.
+     * Updates an existing Resource model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +91,7 @@ class PositionController extends Controller
     }
 
     /**
-     * Deletes an existing Position model.
+     * Deletes an existing Resource model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,15 +104,15 @@ class PositionController extends Controller
     }
 
     /**
-     * Finds the Position model based on its primary key value.
+     * Finds the Resource model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Position the loaded model
+     * @return Resource the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Position::findOne($id)) !== null) {
+        if (($model = Resource::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
