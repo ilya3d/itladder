@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Resource2user;
 use Yii;
 use common\models\User;
 use common\models\search\UserSearch;
@@ -69,6 +70,20 @@ class UserController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionRules($id)
+    {
+        $res2user = new Resource2user();
+
+        if ( $res2user->load( Yii::$app->request->post() ) && $res2user->save() ) {
+            return $this->redirect( ['view', 'id' => $id] );
+        }
+
+        return $this->render('rules', [
+            'model' => $this->findModel($id),
+            'res2user' => $res2user
+        ]);
     }
 
     /**

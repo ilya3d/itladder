@@ -257,4 +257,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Profession::className(), ['id'=>'profession_id']);
     }
 
+
+    public function getResource2user()
+    {
+        return $this->hasMany(Resource2user::className(), ['user_id' => 'id']);
+    }
+
 }

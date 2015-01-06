@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Add rules', ['rules', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -61,5 +62,39 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+
+    <? if ($model->resource2user):?>
+        <h4>Resources:</h4>
+        <div class="grid-view">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th></th>
+                </tr>
+                <? foreach($model->resource2user as $res2user): ?>
+                    <tr>
+                        <td><?= $res2user->resource->name ?></td>
+                        <td><?= $res2user->value ?></td>
+                        <td>
+<!--                            --><?// echo Html::a('edit', ['position/remove_rules'],[
+//                                'id' => "a:".$res2user->position_id.":".$res2user->resource_id,
+//                                'position_id' => $res2user->position_id,
+//                                'resource_id' => $res2user->resource_id
+//                            ]  );
+//
+//                            $this->registerJs("$('#a:{$res2user->position_id}:{$res2user->resource_id}').click();", \yii\web\View::POS_READY);
+//
+//                            ?>
+
+                            <a href="#"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/"><i class="glyphicon glyphicon-remove"></i></a>
+                        </td>
+                    </tr>
+                <? endforeach ?>
+            </table>
+        </div>
+    <? endif ?>
 
 </div>
