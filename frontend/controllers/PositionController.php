@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Resource2position;
 use Yii;
 use common\models\Position;
 use common\models\search\PositionSearch;
@@ -73,8 +74,15 @@ class PositionController extends Controller
 
     public function actionRules($id)
     {
+        $res2pos = new Resource2position();
+
+        if ($res2pos->load(Yii::$app->request->post()) && $res2pos->save()) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
         return $this->render('rules', [
             'model' => $this->findModel($id),
+            'res2pos' => $res2pos
         ]);
     }
 
