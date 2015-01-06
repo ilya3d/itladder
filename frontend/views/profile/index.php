@@ -44,6 +44,10 @@
 
             <table class="table table-striped">
                 <tr>
+                    <td>E-mail</td>
+                    <td><?= $user->email ?></td>
+                </tr>
+                <tr>
                     <td>Phone</td>
                     <td><?= $user->phone ?></td>
                 </tr>
@@ -52,8 +56,8 @@
                     <td><?= $user->skype ?></td>
                 </tr>
                 <tr>
-                    <td>E-mail</td>
-                    <td><?= $user->email ?></td>
+                    <td>ICQ</td>
+                    <td><?= $user->icq ?></td>
                 </tr>
                 <tr>
                     <td>Address</td>
@@ -68,9 +72,9 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#ladder" aria-controls="ladder" role="tab" data-toggle="tab">Position skill</a></li>
-                <li role="presentation"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Profession skill</a></li>
-                <li role="presentation"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
-                <li role="presentation"><a href="#other" aria-controls="other" role="tab" data-toggle="tab">Other</a></li>
+                <li role="presentation" class="disabled"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Profession skill</a></li>
+                <li role="presentation" class="disabled"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
+                <li role="presentation" class="disabled"><a href="#other" aria-controls="other" role="tab" data-toggle="tab">Other</a></li>
             </ul>
 
             <!-- Tab panes -->
