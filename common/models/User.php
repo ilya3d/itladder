@@ -264,8 +264,28 @@ class User extends ActiveRecord implements IdentityInterface
     public function getCurrentPosition()
     {
         /** @var User2position $user2pos */
-        $user2pos =  User2position::find(['user_id'=>$this->id,'status'=>User2position::STATUS_COMPLETE])->orderBy(['date_change'=>'ASC'])->limit(1)->one();
-        return Position::findOne(['id'=>$user2pos->position_id]);
+        $user2pos =  User2position::find()
+            ->where(['user_id'=>$this->id,'status'=>User2position::STATUS_COMPLETE])
+            ->orderBy(['date_change'=>'ASC'])
+            ->limit(1)
+            ->one();
+        return $user2pos ? Position::findOne(['id'=>$user2pos->position_id]) : false;
+
+
+    }
+
+    /**
+     * @return Position static
+     */
+    public function getNextPosition()
+    {
+        /** @var User2position $user2pos */
+        $user2pos = User2position::find()
+            ->where( ['user_id'=>$this->id, 'status'=>[User2position::STATUS_IN_PROGRESS,User2position::STATUS_COLLECTED] ] )
+            ->orderBy(['date_change'=>'ASC'])
+            ->limit(1)
+            ->one();
+        return $user2pos ? Position::findOne(['id'=>$user2pos->position_id]) : false;
 
 
     }
@@ -282,6 +302,12 @@ class User extends ActiveRecord implements IdentityInterface
     public function getResource2user()
     {
         return $this->hasMany(Resource2user::className(), ['user_id' => 'id']);
+    }
+
+
+    public function getPosition2user()
+    {
+        return $this->hasMany(User2position::className(), ['user_id' => 'id']);
     }
 
 }

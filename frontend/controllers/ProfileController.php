@@ -27,11 +27,11 @@ class ProfileController extends DashboardController
         // todo positions and resource
         $positions = User2position::find()
             ->with( 'position' )
-            ->where(['user_id'=>$user->id])
+            ->where( ['user_id'=>$user->id, 'status'=>User2position::STATUS_COMPLETE] )
             ->orderBy(['date_change'=>'ASC'])
             ->all();
 
-        $userCurPosition = $user->getCurrentPosition()->id;
+        $userNextPosition = $user->getCurrentPosition()->next_position;
 
         $resource = Resource2position::find()
             ->with( ['resource',
@@ -41,7 +41,7 @@ class ProfileController extends DashboardController
                 }
             ] )
             ->with( 'resource2user' )
-            ->where(['position_id'=>$userCurPosition])
+            ->where(['position_id'=>$userNextPosition])
             ->all();
 
 

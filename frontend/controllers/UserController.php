@@ -2,7 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Position;
 use common\models\Resource2user;
+use common\models\User2position;
 use Yii;
 use common\models\User;
 use common\models\search\UserSearch;
@@ -99,6 +101,58 @@ class UserController extends Controller
             'model' => $this->findModel($id),
             'res2user' => $res2user
         ]);
+    }
+
+    public function actionUppos( $id )
+    {
+
+        /** @var User2position $curPos */
+        $curPos = User2position::find()
+            ->where( ['user_id'=>$id, 'status'=>[User2position::STATUS_IN_PROGRESS,User2position::STATUS_COLLECTED] ] )
+            ->limit(1)
+            ->one();
+
+        if ( !$curPos ) {
+
+            /** @var User2position $lastPos */
+            $lastPos = User2position::find()
+                ->where(['user_id'=>$id,'status'=>User2position::STATUS_COMPLETE])
+                ->orderBy(['date_change'=>'ASC'])
+                ->limit(1)
+                ->one();
+
+            if ( !$lastPos )
+                return $this->redirect(['view', 'id' => $id]); // todo exception
+
+            /** @var Position $pos */
+            $pos = Position::find()->where(['id'=>$lastPos->position_id])->one();
+
+            $curPos = new User2position();
+            $curPos->user_id = $id;
+            $curPos->position_id = $pos->next_position;
+            $curPos->save();
+        }
+
+
+
+        $curPos->status = 2;
+        $curPos->date_change = time();
+        $curPos->save();
+
+        // todo not save
+
+        $nextPosId = $curPos->position->next_position;
+
+        if ( $nextPosId ) {
+            $nextPos = new User2position();
+            $nextPos->user_id = $id;
+            $nextPos->position_id = $nextPosId ;
+            $nextPos->status = 0;
+            $nextPos->date_change = 0;
+            $nextPos->save();
+        }
+
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**

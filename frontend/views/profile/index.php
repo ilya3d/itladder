@@ -8,7 +8,16 @@
 ?>
 
 <div class="container">
-    <h1>Profile: <?= $user->username ?></h1>
+
+    <div class="row">
+        <div class="col-md-9">
+            <h1><?= $user->username ?></h1>
+        </div>
+        <div class="col-md-3 text-right">
+<!--            <button type="button" class="btn btn-success">Edit</button>-->
+        </div>
+    </div>
+
     <hr>
     <div class="row">
         <!-- left column -->
@@ -21,23 +30,14 @@
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
 
-            <div class="row">
-                <div class="col-md-9">
-                    <h3><?= $user->username ?> (<?= $user->login ?>)</h3>
-                </div>
-                <div class="col-md-3 text-right">
-                    <button type="button" class="btn btn-success">Edit</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
-            </div>
             <div class="form-group">
                 Group: <?= $user->username ?>
             </div>
             <div class="form-group">
                 Position: <?= $user->title_position ?> ( <?= $user->getCurrentPosition()->stage->name ?> )
+            </div>
+            <div class="form-group">
+                Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
             </div>
 
             <h4>Contact Information</h4>
@@ -98,7 +98,7 @@
 
                         <div class="list-group-item">
 
-                            <h4 class="list-group-item-heading"><?= $user->getCurrentPosition()->stage->name ?></h4>
+                            <h4 class="list-group-item-heading"><?= $user->getNextPosition() ? $user->getNextPosition()->stage->name : '' ?></h4>
                             <hr>
 
                             <? foreach($resource as $item): ?>
@@ -124,9 +124,9 @@
                     </div>
 
                 </div>
-                <div role="tabpanel" class="tab-pane" id="skills">.2..</div>
-                <div role="tabpanel" class="tab-pane" id="events">.3..</div>
-                <div role="tabpanel" class="tab-pane" id="other">.4..</div>
+                <div role="tabpanel" class="tab-pane" id="skills"></div>
+                <div role="tabpanel" class="tab-pane" id="events"></div>
+                <div role="tabpanel" class="tab-pane" id="other"></div>
             </div>
 
         </div>
