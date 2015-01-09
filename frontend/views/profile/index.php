@@ -23,7 +23,7 @@
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
-                <img src="//placehold.it/200" class="avatar img-circle" alt="avatar">
+                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar img-circle" alt="avatar">
             </div>
         </div>
 
