@@ -33,9 +33,11 @@ class Resource2position extends \yii\db\ActiveRecord
             [['resource_id', 'position_id', 'value'], 'required'],
             [['resource_id', 'position_id', 'value'], 'integer'],
             ['resource_id', function($attribute, $params){
-                $res2pos = Resource2position::findOne(['resource_id'=>$this->resource_id,'position_id'=>$this->position_id]);
-                if ($res2pos) {
-                    $this->addError($attribute, 'параметр уже задан');
+                if ($this->isNewRecord){
+                    $res2pos = Resource2position::findOne(['resource_id'=>$this->resource_id,'position_id'=>$this->position_id]);
+                    if ($res2pos) {
+                        $this->addError($attribute, 'параметр уже задан');
+                    }
                 }
             }]
         ];
