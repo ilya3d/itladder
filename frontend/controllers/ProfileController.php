@@ -6,7 +6,6 @@ use common\models\Grid;
 use common\models\Position;
 use common\models\Profession;
 use common\models\Resource2position;
-use common\models\Resource2user;
 use common\models\search\UserSearch;
 use common\models\Stage;
 use common\models\User;
@@ -15,7 +14,7 @@ use Faker\Factory;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
 
-class ProfileController extends \yii\web\Controller
+class ProfileController extends DashboardController
 {
     public function actionIndex()
     {

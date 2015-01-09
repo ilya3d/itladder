@@ -22,59 +22,69 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-    <?php $this->beginBody() ?>
-    <div class="wrap">
-        <?php
-            NavBar::begin([
-                'brandLabel' => 'ItLadder',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
-            $menuItems = [
-                ['label' => 'Users', 'url' => ['/user/index']],
-                ['label' => 'Grid', 'url' => ['/grid/index']],
-                ['label' => 'Group', 'url' => ['/group/index']],
-                ['label' => 'Profession', 'url' => ['/profession/index']],
-                ['label' => 'Stage', 'url' => ['/stage/index']],
-                ['label' => 'Position', 'url' => ['/position/index']],
-                ['label' => 'Resource', 'url' => ['/resource/index']],
-            ];
-            if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-            } else {
-                $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ];
-            }
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $menuItems,
-            ]);
-            NavBar::end();
-        ?>
+<?php $this->beginBody() ?>
+<div class="wrap">
+    <?php
+    NavBar::begin([
+        'brandLabel' => 'ItLadder',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+    ]);
 
-        <div class="container">
+    if (\Yii::$app->user->can('dashboad')) {
+        $menuItems = [
+            ['label' => 'Users', 'url' => ['/user/index']],
+            ['label' => 'Grid', 'url' => ['/grid/index']],
+            ['label' => 'Group', 'url' => ['/group/index']],
+            ['label' => 'Profession', 'url' => ['/profession/index']],
+            ['label' => 'Stage', 'url' => ['/stage/index']],
+            ['label' => 'Position', 'url' => ['/position/index']],
+            ['label' => 'Resource', 'url' => ['/resource/index']],
+        ];
+    } else
+    if (\Yii::$app->user->can('user')) {
+        $menuItems = [
+            ['label' => 'Users', 'url' => ['/user/index']],
+        ];
+    }
+
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    } else {
+        $menuItems[] = [
+            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+            'url' => ['/site/logout'],
+            'linkOptions' => ['data-method' => 'post']
+        ];
+    }
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItems,
+    ]);
+    NavBar::end();
+    ?>
+
+    <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
-        </div>
     </div>
+</div>
 
-    <footer class="footer">
-        <div class="container">
+<footer class="footer">
+    <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
-        </div>
-    </footer>
 
-    <?php $this->endBody() ?>
+        <p class="pull-right"><?= Yii::powered() ?></p>
+    </div>
+</footer>
+
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

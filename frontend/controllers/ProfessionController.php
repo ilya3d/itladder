@@ -5,14 +5,13 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Profession;
 use common\models\search\ProfessionSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ProfessionController implements the CRUD actions for Profession model.
  */
-class ProfessionController extends Controller
+class ProfessionController extends DashboardController
 {
     public function behaviors()
     {

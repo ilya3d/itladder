@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-class FeedController extends \yii\web\Controller
+class FeedController extends DashboardController
 {
     public function actionIndex()
     {

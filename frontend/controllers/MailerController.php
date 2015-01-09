@@ -6,7 +6,7 @@ use common\models\User;
 use frontend\models\MailerForm;
 use Yii;
 
-class MailerController extends \yii\web\Controller
+class MailerController extends DashboardController
 {
     public function actionIndex()
     {
