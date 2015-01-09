@@ -32,6 +32,7 @@ return [
 
             'rules' => [
                 'gii' => 'gii',
+                'profile' => 'profile/list',
                 'profile/<user:[\w\.]+>' => 'profile/index',
                 'list' => 'profile/list',
                 'generate' => 'profile/generate',

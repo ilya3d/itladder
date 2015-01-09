@@ -33,9 +33,11 @@
             <div class="form-group">
                 Group: <?= $user->username ?>
             </div>
+            <? if ($user->getCurrentPosition()): ?>
             <div class="form-group">
                 Position: <?= $user->title_position ?> ( <?= $user->getCurrentPosition()->stage->name ?> )
             </div>
+            <? endif ?>
             <div class="form-group">
                 Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
             </div>
@@ -100,25 +102,25 @@
 
                             <h4 class="list-group-item-heading"><?= $user->getNextPosition() ? $user->getNextPosition()->stage->name : '' ?></h4>
                             <hr>
-
-                            <? foreach($resource as $item): ?>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <strong><?= $item->resource->name ?></strong>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $item->resource2user->value ?>" aria-valuemin="0" aria-valuemax="<?= $item->value ?>" style="width: <?= $item->resource2user->value*100/$item->value ?>%">
-                                                <span class="sr-only">40% Complete (success)</span>
+                            <? if ($resource): ?>
+                                <? foreach($resource as $item): ?>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <strong><?= $item->resource->name ?></strong>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $item->resource2user->value ?>" aria-valuemin="0" aria-valuemax="<?= $item->value ?>" style="width: <?= $item->resource2user->value*100/$item->value ?>%">
+                                                    <span class="sr-only">40% Complete (success)</span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-1 text-right">
+                                            <?= $item->resource2user->value ?>/<?= $item->value ?>
+                                        </div>
                                     </div>
-                                    <div class="col-md-1 text-right">
-                                        <?= $item->resource2user->value ?>/<?= $item->value ?>
-                                    </div>
-                                </div>
-                            <? endforeach; ?>
-
+                                <? endforeach; ?>
+                            <? endif ?>
                         </div>
 
                     </div>

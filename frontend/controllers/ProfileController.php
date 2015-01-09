@@ -12,9 +12,10 @@ use common\models\User;
 use common\models\User2position;
 use Faker\Factory;
 use yii\db\Query;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class ProfileController extends DashboardController
+class ProfileController extends Controller
 {
     public function actionIndex()
     {
@@ -31,18 +32,21 @@ class ProfileController extends DashboardController
             ->orderBy(['date_change'=>'ASC'])
             ->all();
 
-        $userNextPosition = $user->getCurrentPosition()->next_position;
+        if ($user->getCurrentPosition()){
+            $userNextPosition = $user->getCurrentPosition()->next_position;
 
-        $resource = Resource2position::find()
-            ->with( ['resource',
-                'resource2user' => function ($query) use ($user) {
-                    /** @var Query $query */
-                    $query->andWhere( ['user_id' => $user->id] );
-                }
-            ] )
-            ->with( 'resource2user' )
-            ->where(['position_id'=>$userNextPosition])
-            ->all();
+            $resource = Resource2position::find()
+                ->with( ['resource',
+                    'resource2user' => function ($query) use ($user) {
+                        /** @var Query $query */
+                        $query->andWhere( ['user_id' => $user->id] );
+                    }
+                ] )
+                ->with( 'resource2user' )
+                ->where(['position_id'=>$userNextPosition])
+                ->all();
+
+        } else $resource = null;
 
 
         return $this->render('index',['user'=>$user,'positions'=>$positions,'resource'=>$resource]);
