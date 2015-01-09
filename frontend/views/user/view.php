@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= $res2user->resource->name ?></td>
                         <td><?= $res2user->value ?></td>
                         <td>
-                            <a href="#"><i class="glyphicon glyphicon-edit"></i></a>
+                            <? echo Html::a( Html::tag('i','',['class'=>'glyphicon glyphicon-edit']) , ['user/edit-rules?data='.$model->id.':'.$res2user->user_id.":".$res2user->resource_id]); ?>
                         </td>
                     </tr>
                 <? endforeach ?>
