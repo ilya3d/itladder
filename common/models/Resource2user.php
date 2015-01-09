@@ -31,7 +31,7 @@ class Resource2user extends \yii\db\ActiveRecord
     {
         return [
             [['resource_id', 'user_id', 'value'], 'required'],
-            [['resource_id', 'user_id', 'value'], 'integer']
+            [['resource_id', 'user_id', 'value'], 'integer'],
         ];
     }
 

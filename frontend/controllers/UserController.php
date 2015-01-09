@@ -9,6 +9,7 @@ use Yii;
 use common\models\User;
 use common\models\search\UserSearch;
 use yii\filters\AccessControl;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -103,6 +104,31 @@ class UserController extends Controller
             'res2user' => $res2user
         ]);
     }
+
+
+    public function actionEditRules()
+    {
+        $data = Yii::$app->getRequest()->getQueryParam('data','');
+
+        if ( !$data )
+            throw new BadRequestHttpException();
+
+        list($id,$user,$res) = explode(':',$data);
+
+        $res2user = Resource2user::findOne(['resource_id'=>$res,'user_id'=>$user]);
+
+        if ( !$res2user ) throw new BadRequestHttpException();
+
+        if ( $res2user->load(Yii::$app->request->post()) && $res2user->save() ) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        return $this->render('rules', [
+            'model' => $this->findModel($id),
+            'res2user' => $res2user
+        ]);
+    }
+
 
     public function actionUppos( $id )
     {
