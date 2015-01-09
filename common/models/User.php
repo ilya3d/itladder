@@ -91,6 +91,7 @@ class User extends ActiveRecord implements IdentityInterface
         if (isset($data['profession_id']))
             $this->setAttribute('profession',Profession::findOne(['id'=>$data['profession_id']]));
 
+        $formName = ($formName === null) ? $this->formName() : $formName;
         if (isset($data[$formName]['birthday']) && $data[$formName]['birthday']!='')
             $this->birthday = \DateTime::createFromFormat('d.m.Y',$data[$formName]['birthday'])->format('U');
 
