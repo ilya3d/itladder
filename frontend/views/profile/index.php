@@ -31,11 +31,19 @@
         <div class="col-md-9 personal-info">
 
             <div class="form-group">
-                Group: <?= $user->username ?>
+                <div class="row">
+                    <div class="col-md-4">
+                        Group: <?= $user->username ?>
+                    </div>
+                    <div class="col-md-4">
+                        Position: <?= $user->title_position ?>
+                    </div>
+                    <div class="col-md-4">
+                        Stage: <?= $user->getCurrentPosition()->stage->name ?>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                Position: <?= $user->title_position ?> ( <?= $user->getCurrentPosition()->stage->name ?> )
-            </div>
+
             <div class="form-group">
                 Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
             </div>

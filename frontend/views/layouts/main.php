@@ -36,12 +36,16 @@ AppAsset::register($this);
     if (\Yii::$app->user->can('dashboad')) {
         $menuItems = [
             ['label' => 'Users', 'url' => ['/user/index']],
-            ['label' => 'Grid', 'url' => ['/grid/index']],
-            ['label' => 'Group', 'url' => ['/group/index']],
-            ['label' => 'Profession', 'url' => ['/profession/index']],
-            ['label' => 'Stage', 'url' => ['/stage/index']],
-            ['label' => 'Position', 'url' => ['/position/index']],
-            ['label' => 'Resource', 'url' => ['/resource/index']],
+            ['label' => 'Mailer', 'url' => ['/mailer/index']],
+            ['label' => 'Tools', 'url' => ['/tools/index'], 'items' =>[
+                ['label' => 'Grid', 'url' => ['/grid/index']],
+                ['label' => 'Stage', 'url' => ['/stage/index']],
+                ['label' => 'Position', 'url' => ['/position/index']],
+                ['label' => 'Group', 'url' => ['/group/index']],
+                ['label' => 'Profession', 'url' => ['/profession/index']],
+                ['label' => 'Resource', 'url' => ['/resource/index']],
+            ]],
+
         ];
     } else
     if (\Yii::$app->user->can('user')) {
