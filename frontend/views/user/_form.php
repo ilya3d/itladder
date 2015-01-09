@@ -29,8 +29,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title_position')->textInput(['maxlength' => 255]) ?>
 
-    <? //$form->field($model, 'birthday')->textInput() ?>
-
     <?= $form->field($model,'birthday')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2014-01-01','changeYear'=>true,'yearRange'=> '1970:2000',],'language' => 'ru',
         'dateFormat' => 'dd.MM.yyyy']) ?>
 
@@ -39,6 +37,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'group_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Group::find()->all(),'id','name') ) ?>
 
     <?= $form->field($model, 'status')->dropDownList(\common\models\User::statusList()) ?>
+
+    <?= $model->isNewRecord ? $form->field($model, 'grid')->dropDownList( \yii\helpers\ArrayHelper::map( \common\models\Grid::find()->all(), 'id', 'name' ) ) : ''?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
