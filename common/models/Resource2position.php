@@ -31,7 +31,8 @@ class Resource2position extends \yii\db\ActiveRecord
     {
         return [
             [['resource_id', 'position_id', 'value'], 'required'],
-            [['resource_id', 'position_id', 'value'], 'integer']
+            [['resource_id', 'position_id', 'value'], 'integer'],
+            [['resource_id', 'position_id'], 'unique', 'targetAttribute' => ['resource_id']],
         ];
     }
 

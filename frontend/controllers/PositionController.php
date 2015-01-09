@@ -6,6 +6,7 @@ use common\models\Resource2position;
 use Yii;
 use common\models\Position;
 use common\models\search\PositionSearch;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,9 +23,42 @@ class PositionController extends DashboardController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'del-rules' => ['post']
                 ],
             ],
         ];
+    }
+
+
+    public function actionEditRules()
+    {
+        $data = Yii::$app->getRequest()->getQueryParam('data','');
+        if (!$data) throw new BadRequestHttpException();
+        list($id,$pos,$res) = explode(':',$data);
+
+        $res2pos = Resource2position::findOne(['resource_id'=>$res,'position_id'=>$pos]);
+
+        if (!$res2pos) throw new BadRequestHttpException();
+
+        if ($res2pos->load(Yii::$app->request->post()) && $res2pos->save()) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        return $this->render('rules', [
+            'model' => $this->findModel($id),
+            'res2pos' => $res2pos
+        ]);
+    }
+
+    public function actionDelRules()
+    {
+        $data = Yii::$app->getRequest()->getQueryParam('data','');
+        if (!$data) throw new BadRequestHttpException();
+        list($id,$pos,$res) = explode(':',$data);
+        if ($pos && $res){
+            Resource2position::deleteAll(['resource_id'=>$res,'position_id'=>$pos]);
+        }
+        \Yii::$app->getResponse()->redirect(['/position/view', 'id' => $id]);
     }
 
     /**

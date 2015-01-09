@@ -59,23 +59,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= $res2pos->resource->name ?></td>
                         <td><?= $res2pos->value ?></td>
                         <td>
-                            <? echo Html::a('edit', ['position/remove_rules'],[
-                                'id' => "a:".$res2pos->position_id.":".$res2pos->resource_id,
-                                'position_id' => $res2pos->position_id,
-                                'resource_id' => $res2pos->resource_id
+                            <? echo Html::a( Html::tag('i','',['class'=>'glyphicon glyphicon-edit']) , ['position/edit-rules?data='.$model->id.':'.$res2pos->position_id.":".$res2pos->resource_id]); ?>
+                            <? echo Html::a( Html::tag('i','',['class'=>'glyphicon glyphicon-remove']) , ['position/del-rules?data='.$model->id.':'.$res2pos->position_id.":".$res2pos->resource_id],[
+                                'data-method'=>'post'
                             ]  );
-
-                            //$js =
-
-
-                            $this->registerJs("$('#a:{$res2pos->position_id}:{$res2pos->resource_id}').click();", \yii\web\View::POS_READY);
-
                             ?>
-
-
-
-                            <a href="#"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/"><i class="glyphicon glyphicon-remove"></i></a>
                         </td>
                     </tr>
                 <? endforeach ?>
