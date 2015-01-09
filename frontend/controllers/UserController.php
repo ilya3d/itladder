@@ -6,6 +6,7 @@ use common\models\Resource2user;
 use Yii;
 use common\models\User;
 use common\models\search\UserSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,8 +16,7 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -24,6 +24,21 @@ class UserController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => ['user']
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['moder']
+                    ]
+                ]
+            ]
         ];
     }
 

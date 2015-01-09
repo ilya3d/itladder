@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label'=>'Profession',
-                'value'=> $model->profession->name
+                'value'=> ($model->profession)?$model->profession->name:''
             ],
             [
                 'label'=>'Birthday',

@@ -5,14 +5,13 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Resource;
 use common\models\search\ResourceSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ResourceController implements the CRUD actions for Resource model.
  */
-class ResourceController extends Controller
+class ResourceController extends DashboardController
 {
     public function behaviors()
     {

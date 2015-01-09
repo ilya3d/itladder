@@ -7,8 +7,8 @@ use yii\console\Controller;
 use common\components\rbac\UserRoleRule;
 
 class RbacController extends Controller {
-    public function actionInit() {
 
+    public function actionInit() {
 
         $user = User::findOne(['username'=>'adm']);
 
@@ -16,7 +16,7 @@ class RbacController extends Controller {
             $user = new User();
 
             $user->id = 1;
-            $user->username = 'adm';
+            $user->login = 'adm';
             $user->email = 'max@twinscom.ru';
             $user->setPassword('123456');
             $user->generateAuthKey();

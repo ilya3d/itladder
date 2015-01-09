@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * GridController implements the CRUD actions for Grid model.
  */
-class GridController extends Controller
+class GridController extends DashboardController
 {
     public function behaviors()
     {

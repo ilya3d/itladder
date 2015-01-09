@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * PositionController implements the CRUD actions for Position model.
  */
-class PositionController extends Controller
+class PositionController extends DashboardController
 {
     public function behaviors()
     {

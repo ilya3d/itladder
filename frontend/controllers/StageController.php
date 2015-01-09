@@ -5,14 +5,13 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Stage;
 use common\models\search\StageSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * StageController implements the CRUD actions for Stage model.
  */
-class StageController extends Controller
+class StageController extends DashboardController
 {
     public function behaviors()
     {
