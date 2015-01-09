@@ -32,12 +32,12 @@ class Resource2user extends \yii\db\ActiveRecord
         return [
             [['resource_id', 'user_id', 'value'], 'required'],
             [['resource_id', 'user_id', 'value'], 'integer'],
-            ['resource_id', function($attribute, $params){
-                $res2user = Resource2user::findOne(['resource_id'=>$this->resource_id,'user_id'=>$this->user]);
-                if ( $res2user ) {
-                    $this->addError($attribute, 'параметр уже задан');
-                }
-            }]
+//            ['resource_id', function($attribute, $params){
+//                $res2user = Resource2user::findOne(['resource_id'=>$this->resource_id,'user_id'=>$this->user]);
+//                if ( $res2user ) {
+//                    $this->addError($attribute, 'параметр уже задан');
+//                }
+//            }]
         ];
     }
 
