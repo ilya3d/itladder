@@ -79,6 +79,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $model->grid = (int)Yii::$app->request->getBodyParam('User')['grid'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
