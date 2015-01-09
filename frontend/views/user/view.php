@@ -55,8 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label'=>'Current Position',
-                'value'=>$model->getCurrentPosition()->stage->name,
+                'value'=>($model->getCurrentPosition())?$model->getCurrentPosition()->stage->name:'',
             ],
+            [
+                'label'=>'Photo',
+                'format' => 'html',
+                'value' => ($model->photo)?Html::img(Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$model->photo,['class'=>'b-stamp']):Html::img('/img/empty.gif')
+            ]
             //'status',
             //'created_at',
             //'register_at',

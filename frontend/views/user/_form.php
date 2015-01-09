@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 
@@ -29,6 +29,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title_position')->textInput(['maxlength' => 255]) ?>
 
+    <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
     <? //$form->field($model, 'birthday')->textInput() ?>
 
     <?= $form->field($model,'birthday')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2014-01-01','changeYear'=>true,'yearRange'=> '1970:2000',],'language' => 'ru',
