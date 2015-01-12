@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
 
-    <?= $form->field($model,'birthday')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2014-01-01','changeYear'=>true,'yearRange'=> '1970:2000',],'language' => 'ru',
+    <?= $form->field($model,'birthday')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2014-01-01','changeYear'=>true,'changeMonth'=>true,'yearRange'=> '1960:2000',],'language' => 'ru',
         'dateFormat' => 'dd.MM.yyyy']) ?>
 
     <?= $form->field($model, 'profession_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Profession::find()->all(),'id','name') ) ?>
