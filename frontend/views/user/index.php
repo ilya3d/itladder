@@ -34,18 +34,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($searchModel->login, \yii\helpers\Url::toRoute('profile/'.$searchModel->login) );
                 }
             ],
-            //'auth_key',
-            //'password_hash',
-            // 'password_reset_token',
              'email:email',
-             //'icq',
-             //'skype',
              'phone',
-             //'address',
              'title_position',
-            // 'profession_id',
-            // 'birthday',
-            // 'status',
+            [
+                'attribute'=>'status',
+                'label'=>'Status',
+                'value'=>function($searchModel){
+                    $statusList = \common\models\User::statusList();
+                    return (isset($statusList[$searchModel->status]))? $statusList[$searchModel->status]:'';
+                },
+                'filter'=>Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    \yii\helpers\ArrayHelper::merge(
+                        [''=>'all'],
+                        \common\models\User::statusList()
+                    ),
+                    ['class' => 'form-control']
+                )
+            ],
+             //'status',
             // 'created_at',
             // 'register_at',
             // 'updated_at',
