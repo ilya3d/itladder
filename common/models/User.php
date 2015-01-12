@@ -44,8 +44,8 @@ class User extends ActiveRecord implements IdentityInterface
 {
     public $grid;
 
-    const STATUS_DISABLED = 0;
     const STATUS_ACTIVE = 10;
+    const STATUS_DISABLED = 5;
     const STATUS_NEW = 1;
 
     const ROLE_USER = 1;
