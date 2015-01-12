@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\User;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -8,6 +9,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
+use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -46,6 +48,11 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            'eauth' => array(
+                // required to disable csrf validation on OpenID requests
+                'class' => \nodge\eauth\openid\ControllerBehavior::className(),
+                'only' => ['service-login'],
+            ),
         ];
     }
 
@@ -67,11 +74,56 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $identity = Yii::$app->getUser()->getIdentity();
+
+        if (isset($identity))
+            var_dump($identity->profile);
+
         return $this->render('index');
     }
 
+    public function actionServiceLogin() {
+        $serviceName = Yii::$app->getRequest()->getQueryParam('service');
+
+        if (isset($serviceName)) {
+            /** @var $eauth \nodge\eauth\ServiceBase */
+            $eauth = Yii::$app->get('eauth')->getIdentity($serviceName);
+            $eauth->setRedirectUrl(Yii::$app->getUser()->getReturnUrl());
+            $eauth->setCancelUrl(Yii::$app->getUrlManager()->createAbsoluteUrl('site/login'));
+            try {
+                if ($eauth->authenticate()) {
+                  //var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes()); exit;
+
+                    $identity = User::findByEAuth($eauth);
+                    Yii::$app->getUser()->login($identity);
+
+                    // special redirect with closing popup window
+                    $eauth->redirect();
+                }
+                else {
+                    // close popup window and redirect to cancelUrl
+                    $eauth->cancel();
+                }
+            }
+            catch (\nodge\eauth\ErrorException $e) {
+                // save error to show it later
+                Yii::$app->getSession()->setFlash('error', 'EAuthException: '.$e->getMessage());
+
+                // close popup window and redirect to cancelUrl
+//              $eauth->cancel();
+                $eauth->redirect($eauth->getCancelUrl());
+            }
+        }
+
+        // default authorization code through login/password ..
+    }
+
+
     public function actionLogin()
     {
+
+        $identity = Yii::$app->getUser()->getIdentity();
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -85,6 +137,7 @@ class SiteController extends Controller
             ]);
         }
     }
+
 
     public function actionLogout()
     {

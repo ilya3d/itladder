@@ -12,6 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p class="lead">Do you already have an account on one of these sites? Click the logo to log in with it here:</p>
+    <?= \nodge\eauth\Widget::widget(['action' => 'site/service-login']); ?>
+
     <p>Please fill out the following fields to login:</p>
 
     <div class="row">
