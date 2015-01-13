@@ -25,6 +25,7 @@ use yii\web\UploadedFile;
  * @property string $address
  * @property string $title_position
  * @property integer $birthday
+ * @property integer $redmine_id
  *
  * @property integer $group_id
  *
@@ -148,13 +149,9 @@ class User extends ActiveRecord implements IdentityInterface
         parent::afterSave($insert, $changedAttributes);
     }
 
-    /**
-     * @inheritdoc
-     */
 
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    public static function findIdentity($id) {
+        return static::findOne(['id' => $id, 'status' => [self::STATUS_ACTIVE,self::STATUS_NEW]]);
     }
 
     /*
@@ -163,10 +160,11 @@ class User extends ActiveRecord implements IdentityInterface
             return new self(Yii::$app->getSession()->get('user-'.$id));
         }
         else {
-            return isset(self::$users[$id]) ? new self(self::$users[$id]) : null;
+            return isset(self::$users[$id]) ? new self(self::$users[$id]) : static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
         }
     }
     */
+
 
     /**
      * @param \nodge\eauth\ServiceBase $service
@@ -199,11 +197,6 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         $attributes['profile']['service'] = $service->getServiceName();
-
-        if ($attributes['profile']['service']=='vkontakte'){
-            /** @var VKontakteOAuth2Service $service */
-            //var_dump($service);exit;
-        }
 
         Yii::$app->getSession()->set('user-'.$id, $attributes);
         return new self($attributes);

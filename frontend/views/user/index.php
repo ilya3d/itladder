@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'username',
             [
+                'attribute'=>'login',
                 'label'=>'Login',
                 'format' => 'html',
                 'value'=>function($searchModel){

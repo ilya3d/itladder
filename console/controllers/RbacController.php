@@ -1,6 +1,7 @@
 <?php
 namespace console\controllers;
 
+use common\components\rbac\UserProfileOwnerRule;
 use common\models\User;
 use Yii;
 use yii\console\Controller;
@@ -10,7 +11,7 @@ class RbacController extends Controller {
 
     public function actionInit() {
 
-        $user = User::findOne(['username'=>'adm']);
+        $user = User::findOne(['login'=>'adm']);
 
         if (!$user){
             $user = new User();
@@ -41,6 +42,7 @@ class RbacController extends Controller {
         $update   = $auth->createPermission('user.update');
 
         $dashboard = $auth->createPermission('dashboad');
+        $updateOwnProfile = $auth->createPermission('updateOwnProfile');
 
 
         $auth->add($index);
@@ -50,18 +52,26 @@ class RbacController extends Controller {
 
         //Включаем наш обработчик
         $rule = new UserRoleRule();
+        $userProfileOwnerRule = new UserProfileOwnerRule();
+
         $auth->add($rule);
+        $auth->add($userProfileOwnerRule);
 
         $user->ruleName = $rule->name;
         $moder->ruleName = $rule->name;
         $admin->ruleName = $rule->name;
+        $updateOwnProfile->ruleName = $userProfileOwnerRule->name;
 
         $auth->add($user);
         $auth->add($moder);
         $auth->add($admin);
+        $auth->add($updateOwnProfile);
 
+
+        $auth->addChild($user, $updateOwnProfile);
         //Добавляем потомков
         $auth->addChild($moder, $user);
+        $auth->addChild($moder, $updateOwnProfile);
 
         $auth->addChild($admin, $moder);
 
