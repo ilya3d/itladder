@@ -35,13 +35,13 @@ use yii\helpers\Html;
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
-                        Group: <?= $user->group->name ?>
+                        Group: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
                         Position: <?= $user->title_position ?>
                     </div>
                     <div class="col-md-4">
-                        Stage: <?= $user->getCurrentPosition()->stage->name ?>
+                        Stage: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
                     </div>
                 </div>
             </div>
