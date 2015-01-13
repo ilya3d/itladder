@@ -106,6 +106,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td>
                             <?= $pos2user->date_change ? Yii::$app->getFormatter()->asDatetime($pos2user->date_change, 'php:d.m.Y') : 'at progress' ?>
                         </td>
+                        <td>
+                            <? echo Html::a( Html::tag('i','',['class'=>'glyphicon glyphicon-edit']) , ['user/edit-position?data='.$model->id.':'.$pos2user->position_id]); ?>
+                        </td>
                     </tr>
                 <? endforeach ?>
             </table>
