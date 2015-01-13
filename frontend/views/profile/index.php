@@ -5,6 +5,8 @@
  * @var $positions \common\models\User2position
  * @var $resource \common\models\Resource2position
 */
+use yii\helpers\Html;
+
 ?>
 
 <div class="container">
@@ -14,7 +16,7 @@
             <h1><?= $user->username ?></h1>
         </div>
         <div class="col-md-3 text-right">
-<!--            <button type="button" class="btn btn-success">Edit</button>-->
+            <?= Html::a('Edit', [ 'profile/' . $user->login . '/edit'], ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 
@@ -33,7 +35,7 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
-                        Group: <?= $user->username ?>
+                        Group: <?= $user->group->name ?>
                     </div>
                     <div class="col-md-4">
                         Position: <?= $user->title_position ?>
@@ -42,9 +44,6 @@
                         Stage: <?= $user->getCurrentPosition()->stage->name ?>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                Position: <?= $user->title_position ?> ( <?= $user->getCurrentPosition()->stage->name ?> )
             </div>
             <div class="form-group">
                 Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>

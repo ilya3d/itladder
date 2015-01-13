@@ -34,6 +34,7 @@ return [
                 'gii' => 'gii',
                 'profile' => 'profile/list',
                 'profile/<user:[\w\.]+>' => 'profile/index',
+                'profile/<user:[\w\.]+>/edit' => 'profile/edit',
                 'list' => 'profile/list',
                 'generate' => 'profile/generate',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
