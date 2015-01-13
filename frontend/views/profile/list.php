@@ -22,6 +22,7 @@ use yii\grid\GridView;
             //'username',
             [
                 'label'=>'Username',
+                'attribute'=>'username',
                 'format' => 'html',
                 'value'=>function($searchModel){
                     return Html::a($searchModel->username, \yii\helpers\Url::toRoute('profile/'.$searchModel->login) );
@@ -46,11 +47,25 @@ use yii\grid\GridView;
 
             [
                 'label'=>'Group',
-                'format' => 'html',
+                'attribute'=>'group_id',
+                //'format' => 'html',
                 'value'=>function($searchModel){
                     return $searchModel->group_id ? $searchModel->group->name : '';
                     // Html::a($searchModel->group, \yii\helpers\Url::toRoute('profile/'.$searchModel->username) );
-                }
+                },
+                'filter'=>Html::activeDropDownList(
+                    $searchModel,
+                    'group_id',
+                    \yii\helpers\ArrayHelper::merge(
+                        [''=>'all'],
+                        \yii\helpers\ArrayHelper::map(
+                            \common\models\Group::find()->asArray()->all(),
+                            'id',
+                            'name'
+                        )
+                    ),
+                    ['class' => 'form-control']
+                )
             ],
 
             //['class' => 'yii\grid\ActionColumn'],
