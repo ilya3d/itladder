@@ -11,11 +11,6 @@ use yii\grid\GridView;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -23,17 +18,24 @@ use yii\grid\GridView;
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'username',
-            'login',
+            //'id',
+            //'username',
+            [
+                'label'=>'Username',
+                'format' => 'html',
+                'value'=>function($searchModel){
+                    return Html::a($searchModel->username, \yii\helpers\Url::toRoute('profile/'.$searchModel->login) );
+                }
+            ],
+            //'login',
             //'auth_key',
             //'password_hash',
             // 'password_reset_token',
             'email:email',
-            'icq',
-            'skype',
-            'phone',
-            'address',
+            //'icq',
+            //'skype',
+            //'phone',
+            //'address',
             'title_position',
             // 'profession_id',
             // 'birthday',
@@ -42,7 +44,16 @@ use yii\grid\GridView;
             // 'register_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'label'=>'Group',
+                'format' => 'html',
+                'value'=>function($searchModel){
+                    return $searchModel->group_id ? $searchModel->group->name : '';
+                    // Html::a($searchModel->group, \yii\helpers\Url::toRoute('profile/'.$searchModel->username) );
+                }
+            ],
+
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

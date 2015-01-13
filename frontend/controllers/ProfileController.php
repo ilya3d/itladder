@@ -131,12 +131,10 @@ class ProfileController extends Controller
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
-        /*
         return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-        */
 
     }
 
