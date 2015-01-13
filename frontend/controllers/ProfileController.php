@@ -49,7 +49,11 @@ class ProfileController extends Controller
         } else $resource = null;
 
 
-        return $this->render('index',['user'=>$user,'positions'=>$positions,'resource'=>$resource]);
+        return $this->render('index',[
+            'user'=>$user,
+            'positions'=>$positions,
+            'resource'=>$resource
+        ]);
     }
 
     public function generatePosition(){
@@ -131,12 +135,32 @@ class ProfileController extends Controller
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
-        /*
         return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-        */
+
+    }
+
+    public function actionEdit()
+    {
+
+        $login =  \Yii::$app->request->getQueryParam('user');
+        /** @var User $user */
+        $user = User::findByLogin($login);
+
+        if (!$user) throw new NotFoundHttpException('Not found user');
+
+        // todo проверка прав доступа
+
+
+        if ($user->load( \Yii::$app->request->post()) && $user->save()) {
+            return $this->redirect([$user->login]);
+        } else {
+            return $this->render('update', [
+                'user' => $user,
+            ]);
+        }
 
     }
 

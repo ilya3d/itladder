@@ -26,6 +26,8 @@ use yii\web\UploadedFile;
  * @property string $title_position
  * @property integer $birthday
  *
+ * @property integer $group_id
+ *
  * @property string $email
  * @property string $auth_key
  * @property integer $status
