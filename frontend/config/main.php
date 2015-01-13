@@ -29,6 +29,17 @@ return [
                 // uncomment this to use streams in safe_mode
                 //'useStreamsFallback' => true,
             ],
+            'services'=>[
+                'twitter' => [
+                    'class' => 'nodge\eauth\services\TwitterOAuth1Service',
+                ],
+                'vkontakte' => [
+                    'class' => 'nodge\eauth\services\VKontakteOAuth2Service',
+                ],
+                'redmine' => [
+                    'class' => 'common\components\oauth\RedmineOAuth1Service',
+                ]
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',

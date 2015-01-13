@@ -92,8 +92,8 @@ class SiteController extends Controller
             $eauth->setCancelUrl(Yii::$app->getUrlManager()->createAbsoluteUrl('site/login'));
             try {
                 if ($eauth->authenticate()) {
-                  //var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes()); exit;
-
+                    //var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes()); exit;
+                    //var_dump($eauth->getAttributes());exit;
                     $identity = User::findByEAuth($eauth);
                     Yii::$app->getUser()->login($identity);
 
@@ -111,6 +111,7 @@ class SiteController extends Controller
 
                 // close popup window and redirect to cancelUrl
 //              $eauth->cancel();
+                //var_dump($eauth->getCancelUrl());
                 $eauth->redirect($eauth->getCancelUrl());
             }
         }
@@ -125,7 +126,7 @@ class SiteController extends Controller
         $identity = Yii::$app->getUser()->getIdentity();
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
+            //return $this->goHome();
         }
 
         $model = new LoginForm();

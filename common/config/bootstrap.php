@@ -6,3 +6,5 @@ Yii::setAlias('console', dirname(dirname(__DIR__)) . '/console');
 
 Yii::setAlias('uploads', dirname(dirname(__DIR__)) . '/frontend/web/uploads');
 Yii::setAlias('web_uploads', '/uploads');
+
+require (__DIR__ . '/../components/oauth/RedmineOauth1Service.php');
