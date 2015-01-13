@@ -33,7 +33,7 @@ use yii\helpers\Html;
         <div class="col-md-9 personal-info">
 
             <div class="form-group">
-                <div class="row">
+                <div class="row"
                     <div class="col-md-4">
                         Group: <?= $user->group->name ?>
                     </div>

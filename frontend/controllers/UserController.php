@@ -38,6 +38,16 @@ class UserController extends Controller
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['update'],
+                        'matchCallback'=>function(){
+                            if (!\Yii::$app->user->can('updateOwnProfile', ['profileId' => Yii::$app->getRequest()->getQueryParam('id')])) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    ],
+                    [
+                        'allow' => true,
                         'roles' => ['moder']
                     ]
                 ]

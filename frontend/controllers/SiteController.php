@@ -76,8 +76,10 @@ class SiteController extends Controller
     {
         $identity = Yii::$app->getUser()->getIdentity();
 
+        /*
         if (isset($identity))
-            var_dump($identity->profile);
+            var_dump($identity);
+        */
 
         return $this->render('index');
     }
@@ -93,8 +95,28 @@ class SiteController extends Controller
             try {
                 if ($eauth->authenticate()) {
                     //var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes()); exit;
-                    //var_dump($eauth->getAttributes());exit;
+
                     $identity = User::findByEAuth($eauth);
+                    $user = User::findOne(['redmine_id'=>$eauth->getAttribute('id')]);
+                    if (!$user){
+
+                        $user = User::findOne(['login'=>$eauth->getAttribute('login')]);
+                        if ($user){
+                            $user->redmine_id = $eauth->getAttribute('id');
+                            $user->save();
+                        } else {
+                            $user = new User();
+                            $user->email = $eauth->getAttribute('email');
+                            $user->login = $eauth->getAttribute('login');
+                            $user->username = $eauth->getAttribute('name');
+                            $user->status = User::STATUS_NEW;
+                            $user->save();
+                        }
+                    }
+
+                    $identity = $user;
+                    //var_dump($identity);exit;
+
                     Yii::$app->getUser()->login($identity);
 
                     // special redirect with closing popup window
@@ -126,7 +148,7 @@ class SiteController extends Controller
         $identity = Yii::$app->getUser()->getIdentity();
 
         if (!\Yii::$app->user->isGuest) {
-            //return $this->goHome();
+            return $this->goHome();
         }
 
         $model = new LoginForm();
