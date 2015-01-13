@@ -140,6 +140,30 @@ class UserController extends Controller
     }
 
 
+    public function actionEditPosition()
+    {
+        $data = Yii::$app->getRequest()->getQueryParam('data','');
+
+        if ( !$data )
+            throw new BadRequestHttpException();
+
+        list($id,$pos) = explode(':',$data);
+
+        $user2pos = User2position::findOne(['position_id'=>$pos,'user_id'=>$id]);
+
+        if ( !$user2pos ) throw new BadRequestHttpException();
+
+        if ( $user2pos->load(Yii::$app->request->post()) && $user2pos->save() ) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        return $this->render('position', [
+            'model' => $this->findModel($id),
+            'user2pos' => $user2pos
+        ]);
+    }
+
+
     public function actionUppos( $id )
     {
 

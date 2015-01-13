@@ -37,7 +37,7 @@ class User2position extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'position_id', 'date_change', 'status'], 'required'],
-            [['user_id', 'position_id', 'date_change', 'status'], 'integer']
+            [['user_id', 'position_id', 'status'], 'integer']
         ];
     }
 
@@ -69,4 +69,18 @@ class User2position extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Position::className(), ['id' => 'position_id']);
     }
+
+
+    public function load($data, $formName = null) {
+
+        $bFlag = parent::load($data, $formName);
+
+        // todo create validator for data_change
+        $formName = ($formName === null) ? $this->formName() : $formName;
+        if (isset($data[$formName]['date_change']) && $data[$formName]['date_change']!='')
+            $this->date_change = \DateTime::createFromFormat('d.m.Y',$data[$formName]['date_change'])->format('U');
+
+        return $bFlag;
+    }
+
 }
