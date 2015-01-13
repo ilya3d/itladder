@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
 
+use nodge\eauth\services\VKontakteOAuth2Service;
 use Yii;
+use yii\base\ErrorException;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -44,6 +46,7 @@ use yii\web\UploadedFile;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public static $users;
     public $grid;
 
     const STATUS_ACTIVE = 10;
@@ -55,6 +58,11 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_ADMIN = 10;
 
     public $file;
+
+    /**
+     * @var array EAuth attributes
+     */
+    public $profile;
 
     public static function statusList(){
         return [
@@ -143,9 +151,61 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
+    /*
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    }
+    */
+
+    public static function findIdentity($id) {
+        if (Yii::$app->getSession()->has('user-'.$id)) {
+            return new self(Yii::$app->getSession()->get('user-'.$id));
+        }
+        else {
+            return isset(self::$users[$id]) ? new self(self::$users[$id]) : null;
+        }
+    }
+
+    /**
+     * @param \nodge\eauth\ServiceBase $service
+     * @return User
+     * @throws ErrorException
+     */
+    public static function findByEAuth($service) {
+        if (!$service->getIsAuthenticated()) {
+            throw new ErrorException('EAuth user should be authenticated before creating identity.');
+        }
+
+        $id = $service->getServiceName().'-'.$service->getId();
+
+        if ($service->getServiceName()=='vkontakte'){
+            $attributes = array(
+                'id' => $id,
+                'login' => $service->getAttribute('username'),
+                'username' => $service->getAttribute('name'),
+                'auth_key' => md5($id),
+                'profile' => $service->getAttributes(),
+            );
+        } else {
+            $attributes = array(
+                'id' => $id,
+                'login' => $service->getAttribute('name'),
+                'username' => $service->getAttribute('name'),
+                'auth_key' => md5($id),
+                'profile' => $service->getAttributes(),
+            );
+        }
+
+        $attributes['profile']['service'] = $service->getServiceName();
+
+        if ($attributes['profile']['service']=='vkontakte'){
+            /** @var VKontakteOAuth2Service $service */
+            //var_dump($service);exit;
+        }
+
+        Yii::$app->getSession()->set('user-'.$id, $attributes);
+        return new self($attributes);
     }
 
     /**
