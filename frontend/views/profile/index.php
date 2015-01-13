@@ -16,7 +16,9 @@ use yii\helpers\Html;
             <h1><?= $user->username ?></h1>
         </div>
         <div class="col-md-3 text-right">
+            <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])): ?>
             <?= Html::a('Edit', [ 'profile/' . $user->login . '/edit'], ['class' => 'btn btn-success']) ?>
+            <? endif ?>
         </div>
     </div>
 

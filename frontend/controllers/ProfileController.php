@@ -11,12 +11,50 @@ use common\models\Stage;
 use common\models\User;
 use common\models\User2position;
 use Faker\Factory;
+use Yii;
 use yii\db\Query;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class ProfileController extends Controller
 {
+
+    public function behaviors() {
+        return [
+
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions'=>['index','list'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['edit'],
+                        'matchCallback'=>function(){
+                            $params = Yii::$app->getRequest()->getQueryParams();
+                            if (!isset($params['user'])) return false;
+
+                            $user = User::findOne(['login'=>$params['user']]);
+                            if (!$user) return false;
+
+                            if (!\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['moder']
+                    ]
+                ]
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         $login =  \Yii::$app->request->getQueryParam('user');
