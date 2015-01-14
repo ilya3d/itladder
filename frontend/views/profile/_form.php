@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="grid-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 
@@ -33,6 +33,8 @@ use yii\widgets\ActiveForm;
         'language' => 'ru',
         'dateFormat' => 'dd.MM.yyyy'
     ]) ?>
+
+    <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

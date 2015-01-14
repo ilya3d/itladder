@@ -38,9 +38,6 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
-            </div>
 
             <h4>Contact Information</h4>
 
