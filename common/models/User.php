@@ -100,20 +100,21 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
+
         return [
             [['username','login','icq','skype','phone','address','title_position','email','birthday'], 'string'],
             [['profession_id','group_id','grid_id'], 'integer'],
-            ['birthday','default','value'=>'1980-01-01 00:00:00'],
+            ['birthday','default','value'=>Yii::$app->formatter->asDate('now -20 year')],
 
             ['status', 'default', 'value' => self::STATUS_NEW],
             ['status', 'in', 'range' => [self::STATUS_DISABLED, self::STATUS_ACTIVE, self::STATUS_NEW]],
             ['file','file','extensions' => ['png', 'jpg', 'gif'],'mimeTypes'=>'image/jpeg, image/png, image/gif'],
-            /*
+
             ['birthday',function(){
                 if ($this->birthday)
-                    $this->birthday = \DateTime::createFromFormat('d.m.Y',$this->birthday)->format(\DateTime::W3C);
+                    $this->birthday = Yii::$app->getFormatter()->asDate($this->birthday,'php:Y-m-d');
             }],
-            */
+
 
         ];
     }
