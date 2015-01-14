@@ -25,13 +25,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model,'birthday')->widget(DatePicker::className(),[
         'clientOptions' => [
-            'defaultDate' => '2014-01-01',
+            'defaultDate' => '1980-01-01',
             'changeYear'=>true,
             'changeMonth'=>true,
-            'yearRange'=> '1960:2000'
+            'yearRange'=> '1960:2005',
         ],
         'language' => 'ru',
-        'dateFormat' => 'dd.MM.yyyy'
+        'dateFormat' => 'yyyy-MM-dd'
     ]) ?>
 
     <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
