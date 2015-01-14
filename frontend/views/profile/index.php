@@ -7,6 +7,7 @@
 */
 use yii\helpers\Html;
 
+/* @todo check formater XSS  */
 ?>
 
 <div class="container">
@@ -40,7 +41,7 @@ use yii\helpers\Html;
                         Group: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
-                        Position: <?= $user->title_position ?>
+                        Position: <?= Yii::$app->getFormatter()->format($user->title_position,'text') ?>
                     </div>
                     <div class="col-md-4">
                         Stage: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
@@ -56,23 +57,23 @@ use yii\helpers\Html;
             <table class="table table-striped">
                 <tr>
                     <td>E-mail</td>
-                    <td><?= $user->email ?></td>
+                    <td><?= Yii::$app->getFormatter()->format($user->email,'text') ?></td>
                 </tr>
                 <tr>
                     <td>Phone</td>
-                    <td><?= $user->phone ?></td>
+                    <td><?= Yii::$app->getFormatter()->format($user->phone,'text') ?></td>
                 </tr>
                 <tr>
                     <td>Skype</td>
-                    <td><?= $user->skype ?></td>
+                    <td><?= Yii::$app->getFormatter()->format($user->skype,'text') ?></td>
                 </tr>
                 <tr>
                     <td>ICQ</td>
-                    <td><?= $user->icq ?></td>
+                    <td><?= Yii::$app->getFormatter()->format($user->icq,'text') ?></td>
                 </tr>
                 <tr>
                     <td>Address</td>
-                    <td><?= $user->address ?></td>
+                    <td><?= Yii::$app->getFormatter()->format($user->address,'text') ?></td>
                 </tr>
             </table>
 

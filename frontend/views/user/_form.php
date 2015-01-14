@@ -29,10 +29,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title_position')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
+    <? $form->field($model, 'file')->label('photo')->fileInput() ?>
 
-    <?= $form->field($model,'birthday')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2014-01-01','changeYear'=>true,'changeMonth'=>true,'yearRange'=> '1960:2000',],'language' => 'ru',
-        'dateFormat' => 'dd.MM.yyyy']) ?>
+    <?= $form->field($model,'birthday')
+            ->widget(DatePicker::className(),[
+                'clientOptions' => [
+                    'defaultDate' => '1980-01-01',
+                    'changeYear'=>true,
+                    'changeMonth'=>true,
+                    'yearRange'=> '1960:2005',
+                    //'altFormat' => 'dd.mm.yyyy'
+                ],
+                'language' => 'ru',
+                'dateFormat' => 'yyyy-MM-dd'
+            ])
+    // @todo http://stackoverflow.com/questions/4392097/altformat-not-working-in-jquery-datepicker-input-field
+    ?>
 
     <?= $form->field($model, 'profession_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Profession::find()->all(),'id','name') ) ?>
 
@@ -40,7 +52,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList(\common\models\User::statusList()) ?>
 
-    <?= $model->isNewRecord ? $form->field($model, 'grid')->dropDownList( \yii\helpers\ArrayHelper::map( \common\models\Grid::find()->all(), 'id', 'name' ) ) : ''?>
+    <?= (!$model->grid_id) ? $form->field($model, 'grid_id')->dropDownList( \yii\helpers\ArrayHelper::map( \common\models\Grid::find()->all(), 'id', 'name' ) ) : ''?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -38,16 +38,6 @@ class UserController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update'],
-                        'matchCallback'=>function(){
-                            if (!\Yii::$app->user->can('updateOwnProfile', ['profileId' => Yii::$app->getRequest()->getQueryParam('id')])) {
-                                return false;
-                            }
-                            return true;
-                        }
-                    ],
-                    [
-                        'allow' => true,
                         'roles' => ['moder']
                     ]
                 ]
@@ -90,7 +80,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-        $model->grid = (int)Yii::$app->request->getBodyParam('User')['grid'];
+        //$model->grid = (int)Yii::$app->request->getBodyParam('User')['grid'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
