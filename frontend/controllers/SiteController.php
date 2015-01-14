@@ -74,6 +74,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        // redirect to user profile
+        if ( Yii::$app->user->isGuest ) {
+            $login = \Yii::$app->getUser()->identity->login;
+            return $this->redirect( 'profile/' . $login );
+        }
+
         $identity = Yii::$app->getUser()->getIdentity();
 
         /*
