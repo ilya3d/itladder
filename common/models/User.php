@@ -1,12 +1,16 @@
 <?php
 namespace common\models;
 
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Imagick\Imagine;
 use nodge\eauth\services\VKontakteOAuth2Service;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\imagine\Image;
 use yii\web\IdentityInterface;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
@@ -417,7 +421,14 @@ class User extends ActiveRecord implements IdentityInterface
 
             $filename =  Yii::$app->security->generateRandomString('20') . ".{$ext}";
             try {
-                $file->saveAs($dir . '/' . $filename);
+
+                $imagine = new Imagine();
+                $mode = ImageInterface::THUMBNAIL_INSET;
+                $size    = new Box(256, 256);
+
+                $imagine->open($file->tempName)->thumbnail($size, $mode)->save($dir . '/' . $filename);
+
+                //$file->saveAs($dir . '/' . $filename);
                 $this->photo = $filename;
             } catch(\Exception $e) {
                 new ServerErrorHttpException("Не удалось сохранить файл");
