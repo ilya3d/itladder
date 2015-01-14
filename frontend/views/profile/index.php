@@ -27,7 +27,7 @@ use yii\helpers\Html;
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
-                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar img-circle" alt="avatar">
+                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar img-circle" alt="avatar" style="max-width: 256px; max-height: 256px;" >
             </div>
         </div>
 
