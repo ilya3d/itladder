@@ -1,12 +1,16 @@
 <?php
 namespace common\models;
 
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Imagick\Imagine;
 use nodge\eauth\services\VKontakteOAuth2Service;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\imagine\Image;
 use yii\web\IdentityInterface;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
@@ -96,20 +100,21 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
+
         return [
             [['username','login','icq','skype','phone','address','title_position','email','birthday'], 'string'],
             [['profession_id','group_id','grid_id'], 'integer'],
-            ['birthday','default','value'=>'1980-01-01 00:00:00'],
+            ['birthday','default','value'=>Yii::$app->formatter->asDate('now -20 year')],
 
             ['status', 'default', 'value' => self::STATUS_NEW],
             ['status', 'in', 'range' => [self::STATUS_DISABLED, self::STATUS_ACTIVE, self::STATUS_NEW]],
-            ['file','file','extensions' => ['png', 'jpg', 'gif'],'mimeTypes'=>'image/jpeg, image/png, image/gif'],
-            /*
+            ['file','file','extensions' => ['png', 'jpg', 'gif', 'jpeg'],'mimeTypes'=>'image/jpeg, image/png, image/gif'],
+
             ['birthday',function(){
                 if ($this->birthday)
-                    $this->birthday = \DateTime::createFromFormat('d.m.Y',$this->birthday)->format(\DateTime::W3C);
+                    $this->birthday = Yii::$app->getFormatter()->asDate($this->birthday,'php:Y-m-d');
             }],
-            */
+
 
         ];
     }
@@ -417,7 +422,14 @@ class User extends ActiveRecord implements IdentityInterface
 
             $filename =  Yii::$app->security->generateRandomString('20') . ".{$ext}";
             try {
-                $file->saveAs($dir . '/' . $filename);
+
+                $imagine = new Imagine();
+                $mode = ImageInterface::THUMBNAIL_INSET;
+                $size    = new Box(256, 256);
+
+                $imagine->open($file->tempName)->thumbnail($size, $mode)->save($dir . '/' . $filename);
+
+                //$file->saveAs($dir . '/' . $filename);
                 $this->photo = $filename;
             } catch(\Exception $e) {
                 new ServerErrorHttpException("Не удалось сохранить файл");

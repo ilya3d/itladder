@@ -34,16 +34,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model,'birthday')
             ->widget(DatePicker::className(),[
                 'clientOptions' => [
-                    'defaultDate' => '1980-01-01',
+                    'defaultDate' => Yii::$app->formatter->asDate('now - 20 year'),
                     'changeYear'=>true,
                     'changeMonth'=>true,
-                    'yearRange'=> '1960:2005',
-                    //'altFormat' => 'dd.mm.yyyy'
+                    'yearRange'=> '1917:-10',
                 ],
                 'language' => 'ru',
-                'dateFormat' => 'yyyy-MM-dd'
+                'dateFormat' => Yii::$app->formatter->dateFormat
             ])
-    // @todo http://stackoverflow.com/questions/4392097/altformat-not-working-in-jquery-datepicker-input-field
     ?>
 
     <?= $form->field($model, 'profession_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Profession::find()->all(),'id','name') ) ?>

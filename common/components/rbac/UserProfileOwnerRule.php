@@ -18,6 +18,8 @@ class UserProfileOwnerRule extends Rule
      */
     public function execute($user, $item, $params)
     {
+        if (\Yii::$app->getUser()->isGuest) return false;
+
         $role = \Yii::$app->user->identity->role;
 
         if ($role == User::ROLE_ADMIN) {

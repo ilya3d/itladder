@@ -23,16 +23,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model,'birthday')->widget(DatePicker::className(),[
-        'clientOptions' => [
-            'defaultDate' => '1980-01-01',
-            'changeYear'=>true,
-            'changeMonth'=>true,
-            'yearRange'=> '1960:2005',
-        ],
-        'language' => 'ru',
-        'dateFormat' => 'yyyy-MM-dd'
-    ]) ?>
+    <?= $form->field($model,'birthday')
+        ->widget(DatePicker::className(),[
+            'clientOptions' => [
+                'defaultDate' => Yii::$app->formatter->asDate('now - 20 year'),
+                'changeYear'=>true,
+                'changeMonth'=>true,
+                'yearRange'=> '1917:-10',
+            ],
+            'language' => 'ru',
+            'dateFormat' => Yii::$app->formatter->dateFormat
+        ])
+    ?>
 
     <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
 

@@ -12,6 +12,9 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'php:d.m.Y',
+        ],
         'i18n' => array(
             'translations' => array(
                 'app*' => [
