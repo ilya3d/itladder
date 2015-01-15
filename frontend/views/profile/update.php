@@ -18,7 +18,7 @@
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
-                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar img-circle" alt="avatar">
+                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar" alt="avatar" style="max-width: 256px; max-height: 256px;" >
             </div>
         </div>
 
@@ -28,13 +28,13 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
-                        Group: <?= $user->group ? $user->group->name : '' ?>
+                        <?= Yii::t('app/profile','Group') ?>: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
-                        Position: <?= $user->title_position ?>
+                        <?= Yii::t('app/profile','Position') ?>: <?= Yii::$app->getFormatter()->format($user->title_position,'text') ?> <?= $user->profession ? '('.$user->profession->name.')' : '' ?>
                     </div>
                     <div class="col-md-4">
-                        Stage: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
+                        <?= Yii::t('app/profile','Stage') ?>: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
                     </div>
                 </div>
             </div>

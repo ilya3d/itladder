@@ -30,7 +30,7 @@ $this->title = $user->username;
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
-                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar img-circle" alt="avatar" style="max-width: 256px; max-height: 256px;" >
+                <img src="<?= $user->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$user->photo  : '//placehold.it/200' ?>" class="avatar" alt="avatar" style="max-width: 256px; max-height: 256px;" >
             </div>
         </div>
 
@@ -43,10 +43,10 @@ $this->title = $user->username;
                         <?= Yii::t('app/profile','Group') ?>: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
-                        <?= Yii::t('app/profile','Position') ?>: <?= Html::encode($user->title_position) ?>
+                        <?= Yii::t('app/profile','Position') ?>: <?= Html::encode($user->title_position) ?> <?= $user->profession ? '('.$user->profession->name.')' : '' ?>
                     </div>
                     <div class="col-md-4">
-                        Stage: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
+                        <?= Yii::t('app/profile','Stage') ?>: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
                     </div>
                 </div>
             </div>
@@ -122,13 +122,13 @@ $this->title = $user->username;
                                         </div>
                                         <div class="col-md-9">
                                             <div class="progress">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $item->resource2user->value ?>" aria-valuemin="0" aria-valuemax="<?= $item->value ?>" style="width: <?= $item->resource2user->value*100/$item->value ?>%">
+                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $item->resource2user ? $item->resource2user->value : 0 ?>" aria-valuemin="0" aria-valuemax="<?= $item->value ?>" style="width: <?= ($item->resource2user ? $item->resource2user->value : 0)*100/$item->value ?>%">
                                                     <span class="sr-only">40% Complete (success)</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1 text-right">
-                                            <?= $item->resource2user->value ?>/<?= $item->value ?>
+                                            <?= $item->resource2user ? $item->resource2user->value : 0 ?>/<?= $item->value ?>
                                         </div>
                                     </div>
                                 <? endforeach; ?>

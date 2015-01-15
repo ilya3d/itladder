@@ -50,7 +50,7 @@ AppAsset::register($this);
     } else
     if (\Yii::$app->user->can('user')) {
         $menuItems = [
-            ['label' => 'Users', 'url' => ['/user/index']],
+            ['label' => 'Users', 'url' => ['/profile']],
         ];
     }
 
