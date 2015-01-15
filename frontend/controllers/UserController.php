@@ -120,6 +120,8 @@ class UserController extends Controller
         if ( !$res2user ) throw new BadRequestHttpException();
 
         if ( $res2user->load(Yii::$app->request->post()) && $res2user->save() ) {
+            $curUser = User::findOne(['id'=>$user]);
+            $curUser->checkPositionStatus();
             return $this->redirect(['view', 'id' => $id]);
         }
 
@@ -168,7 +170,7 @@ class UserController extends Controller
             /** @var User2position $lastPos */
             $lastPos = User2position::find()
                 ->where(['user_id'=>$id,'status'=>User2position::STATUS_COMPLETE])
-                ->orderBy(['date_change'=>'ASC'])
+                ->orderBy(['date_change'=>SORT_DESC])
                 ->limit(1)
                 ->one();
 
@@ -178,12 +180,14 @@ class UserController extends Controller
             /** @var Position $pos */
             $pos = Position::find()->where(['id'=>$lastPos->position_id])->one();
 
+            if ( !$pos->next_position )
+                return $this->redirect(['view', 'id' => $id]); // todo exception
+
             $curPos = new User2position();
             $curPos->user_id = $id;
             $curPos->position_id = $pos->next_position;
             $curPos->save();
         }
-
 
 
         $curPos->status = 2;

@@ -104,7 +104,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tr class="<? if($pos2user->status==2):?>success<? elseif($pos2user->status==1):?>info<? endif;?>">
                         <td><?= $pos2user->position->stage->name ?></td>
                         <td>
-                            <?= $pos2user->date_change ? Yii::$app->getFormatter()->asDatetime($pos2user->date_change, 'php:d.m.Y') : 'at progress' ?>
+                            <?= $pos2user->date_change ? Yii::$app->getFormatter()->asDatetime($pos2user->date_change, 'php:d.m.Y') : '' ?>
+                            <? if($pos2user->status==0):?>at progress<? elseif($pos2user->status==1):?>collected<? endif;?>
                         </td>
                         <td>
                             <? echo Html::a( Html::tag('i','',['class'=>'glyphicon glyphicon-edit']) , ['user/edit-position?data='.$model->id.':'.$pos2user->position_id]); ?>
