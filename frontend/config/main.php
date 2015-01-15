@@ -17,6 +17,14 @@ return [
         ],
         'i18n' => array(
             'translations' => array(
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en-US',
+                    'basePath' => '@app/messages',
+                    'fileMap' => [
+                        'app/profile' => 'profile.php',
+                    ],
+                ],
                 'eauth' => array(
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@eauth/messages',

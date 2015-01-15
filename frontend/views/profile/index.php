@@ -40,10 +40,10 @@ $this->title = $user->username;
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
-                        Group: <?= $user->group ? $user->group->name : '' ?>
+                        <?= Yii::t('app/profile','Group') ?>: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
-                        Position: <?= Html::encode($user->title_position) ?>
+                        <?= Yii::t('app/profile','Position') ?>: <?= Yii::$app->getFormatter()->format($user->title_position,'text') ?>
                     </div>
                     <div class="col-md-4">
                         Stage: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
