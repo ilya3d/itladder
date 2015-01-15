@@ -131,20 +131,21 @@ class User extends ActiveRecord implements IdentityInterface
                 ->limit(1)
                 ->one();
 
-            $curPos = new User2position();
-            $curPos->user_id = $this->id;
-            $curPos->position_id = $pos->id;
-            $curPos->status = User2position::STATUS_COMPLETE;
-            $curPos->date_change = time();
-            $curPos->save();
+            if ($pos) {
+                $curPos = new User2position();
+                $curPos->user_id = $this->id;
+                $curPos->position_id = $pos->id;
+                $curPos->status = User2position::STATUS_COMPLETE;
+                $curPos->date_change = time();
+                $curPos->save();
 
-            $curPos = new User2position();
-            $curPos->user_id = $this->id;
-            $curPos->position_id = $pos->next_position;
-            $curPos->status = User2position::STATUS_IN_PROGRESS;
-            $curPos->date_change = 0;
-            $curPos->save();
-
+                $curPos = new User2position();
+                $curPos->user_id = $this->id;
+                $curPos->position_id = $pos->next_position;
+                $curPos->status = User2position::STATUS_IN_PROGRESS;
+                $curPos->date_change = 0;
+                $curPos->save();
+            }
         }
 
         parent::afterSave($insert, $changedAttributes);

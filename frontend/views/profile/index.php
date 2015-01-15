@@ -43,7 +43,7 @@ $this->title = $user->username;
                         <?= Yii::t('app/profile','Group') ?>: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
-                        <?= Yii::t('app/profile','Position') ?>: <?= Yii::$app->getFormatter()->format($user->title_position,'text') ?>
+                        <?= Yii::t('app/profile','Position') ?>: <?= Html::encode($user->title_position) ?>
                     </div>
                     <div class="col-md-4">
                         Stage: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
@@ -114,7 +114,7 @@ $this->title = $user->username;
 
                             <h4 class="list-group-item-heading"><?= $user->getNextPosition() ? $user->getNextPosition()->stage->name : '' ?></h4>
                             <hr>
-                            <? if ($resource): ?>
+                            <? if ($resource && $user->grid_id): ?>
                                 <? foreach($resource as $item): ?>
                                     <div class="row">
                                         <div class="col-md-2">
