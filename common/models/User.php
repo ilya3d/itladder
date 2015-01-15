@@ -109,7 +109,7 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['status', 'default', 'value' => self::STATUS_NEW],
             ['status', 'in', 'range' => [self::STATUS_DISABLED, self::STATUS_ACTIVE, self::STATUS_NEW]],
-            ['file','file','extensions' => ['png', 'jpg', 'gif', 'jpeg'],'mimeTypes'=>'image/jpeg, image/png, image/gif'],
+            ['file','file','extensions' => ['png', 'jpg', 'gif', 'jpeg'],'mimeTypes'=>'image/jpeg, image/png, image/gif','maxSize' => 1024*1024*1024],
 
             ['birthday',function(){
                 if ($this->birthday)
@@ -132,20 +132,21 @@ class User extends ActiveRecord implements IdentityInterface
                 ->limit(1)
                 ->one();
 
-            $curPos = new User2position();
-            $curPos->user_id = $this->id;
-            $curPos->position_id = $pos->id;
-            $curPos->status = User2position::STATUS_COMPLETE;
-            $curPos->date_change = time();
-            $curPos->save();
+            if ($pos) {
+                $curPos = new User2position();
+                $curPos->user_id = $this->id;
+                $curPos->position_id = $pos->id;
+                $curPos->status = User2position::STATUS_COMPLETE;
+                $curPos->date_change = time();
+                $curPos->save();
 
-            $curPos = new User2position();
-            $curPos->user_id = $this->id;
-            $curPos->position_id = $pos->next_position;
-            $curPos->status = User2position::STATUS_IN_PROGRESS;
-            $curPos->date_change = 0;
-            $curPos->save();
-
+                $curPos = new User2position();
+                $curPos->user_id = $this->id;
+                $curPos->position_id = $pos->next_position;
+                $curPos->status = User2position::STATUS_IN_PROGRESS;
+                $curPos->date_change = 0;
+                $curPos->save();
+            }
         }
 
         parent::afterSave($insert, $changedAttributes);

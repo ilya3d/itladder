@@ -7,6 +7,8 @@
 */
 use yii\helpers\Html;
 
+$this->title = $user->username;
+
 /* @todo check formater XSS  */
 ?>
 
@@ -14,7 +16,7 @@ use yii\helpers\Html;
 
     <div class="row">
         <div class="col-md-9">
-            <h1><?= $user->username ?></h1>
+            <h1><?= Html::encode($user->username);?></h1>
         </div>
         <div class="col-md-3 text-right">
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])): ?>
@@ -41,7 +43,7 @@ use yii\helpers\Html;
                         <?= Yii::t('app/profile','Group') ?>: <?= $user->group ? $user->group->name : '' ?>
                     </div>
                     <div class="col-md-4">
-                        <?= Yii::t('app/profile','Position') ?>: <?= Yii::$app->getFormatter()->format($user->title_position,'text') ?> <?= $user->profession ? '('.$user->profession->name.')' : '' ?>
+                        <?= Yii::t('app/profile','Position') ?>: <?= Html::encode($user->title_position) ?> <?= $user->profession ? '('.$user->profession->name.')' : '' ?>
                     </div>
                     <div class="col-md-4">
                         <?= Yii::t('app/profile','Stage') ?>: <?= $user->getCurrentPosition() ? $user->getCurrentPosition()->stage->name : '' ?>
@@ -57,23 +59,23 @@ use yii\helpers\Html;
             <table class="table table-striped">
                 <tr>
                     <td>E-mail</td>
-                    <td><?= Yii::$app->getFormatter()->format($user->email,'text') ?></td>
+                    <td><?= Html::encode($user->email) ?></td>
                 </tr>
                 <tr>
                     <td>Phone</td>
-                    <td><?= Yii::$app->getFormatter()->format($user->phone,'text') ?></td>
+                    <td><?= Html::encode($user->phone) ?></td>
                 </tr>
                 <tr>
                     <td>Skype</td>
-                    <td><?= Yii::$app->getFormatter()->format($user->skype,'text') ?></td>
+                    <td><?= Html::encode($user->skype) ?></td>
                 </tr>
                 <tr>
                     <td>ICQ</td>
-                    <td><?= Yii::$app->getFormatter()->format($user->icq,'text') ?></td>
+                    <td><?= Html::encode($user->icq) ?></td>
                 </tr>
                 <tr>
                     <td>Address</td>
-                    <td><?= Yii::$app->getFormatter()->format($user->address,'text') ?></td>
+                    <td><?= Html::encode($user->address) ?></td>
                 </tr>
             </table>
 
@@ -112,7 +114,7 @@ use yii\helpers\Html;
 
                             <h4 class="list-group-item-heading"><?= $user->getNextPosition() ? $user->getNextPosition()->stage->name : '' ?></h4>
                             <hr>
-                            <? if ($resource): ?>
+                            <? if ($resource && $user->grid_id): ?>
                                 <? foreach($resource as $item): ?>
                                     <div class="row">
                                         <div class="col-md-2">

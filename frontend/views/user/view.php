@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label'=>'Photo',
                 'format' => 'html',
-                'value' => ($model->photo)?Html::img(Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$model->photo,['class'=>'b-stamp']):Html::img('/img/empty.gif')
+                'value' => ($model->photo)?Html::img(Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$model->photo,['class'=>'b-stamp']):Html::img('//placehold.it/200')
             ]
             //'status',
             //'created_at',

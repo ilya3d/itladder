@@ -20,7 +20,7 @@ return [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'sourceLanguage' => 'en-US',
-                    'basePath' => '@app/messages',
+                    'basePath' => dirname(dirname(__DIR__)).'/messages',
                     'fileMap' => [
                         'app/profile' => 'profile.php',
                     ],

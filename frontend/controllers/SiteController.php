@@ -14,6 +14,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Site controller
@@ -119,7 +120,7 @@ class SiteController extends Controller
                             $user->save();
                         }
                     }
-
+                    if ($user->status == User::STATUS_DISABLED) throw new ForbiddenHttpException('Access denied');
                     $identity = $user;
                     //var_dump($identity);exit;
 
