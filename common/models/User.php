@@ -108,7 +108,7 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['status', 'default', 'value' => self::STATUS_NEW],
             ['status', 'in', 'range' => [self::STATUS_DISABLED, self::STATUS_ACTIVE, self::STATUS_NEW]],
-            ['file','file','extensions' => ['png', 'jpg', 'gif', 'jpeg'],'mimeTypes'=>'image/jpeg, image/png, image/gif'],
+            ['file','file','extensions' => ['png', 'jpg', 'gif', 'jpeg'],'mimeTypes'=>'image/jpeg, image/png, image/gif','maxSize' => 1024*1024*1024],
 
             ['birthday',function(){
                 if ($this->birthday)
