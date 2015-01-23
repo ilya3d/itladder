@@ -127,7 +127,7 @@ class ProfileController extends Controller
 
     public function actionGenerate()
     {
-
+        exit;
         $this->generatePosition();
         User::deleteAll();
 
