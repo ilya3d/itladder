@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->params['breadcrumbs'][] = 'Blog';
 ?>
 <div class="blog-index">
-    <? if (Yii::$app->getUser()->getIdentity()->login === Yii::$app->getRequest()->get('user')): ?>
+    <? if (!Yii::$app->getUser()->isGuest && Yii::$app->getUser()->getIdentity()->login === Yii::$app->getRequest()->get('user')): ?>
     <div class="row" style="margin-bottom: 20px;">
         <?= Html::a('Create post','/blog/'.Yii::$app->getUser()->getIdentity()->login.'/create',['class' => 'btn btn-success'])?>
     </div>
