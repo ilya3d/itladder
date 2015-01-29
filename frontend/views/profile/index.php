@@ -19,6 +19,8 @@ $this->title = $user->username;
             <h1><?= Html::encode($user->username);?></h1>
         </div>
         <div class="col-md-3 text-right">
+            <?= Html::a('Blog', [ 'blog/' . $user->login], ['class' => 'btn btn-warning']) ?>
+
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])): ?>
             <?= Html::a('Edit', [ 'profile/' . $user->login . '/edit'], ['class' => 'btn btn-success']) ?>
             <? endif ?>
