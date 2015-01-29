@@ -61,6 +61,8 @@ class Post extends \yii\db\ActiveRecord
 
     public function beforeSave($insert) {
 
+        if (!$this->isNewRecord) $this->setAttribute('user_id',$this->getOldAttribute('user_id'));
+
         $this->text = strip_tags($this->text, self::ALLOW_TAGS);
         $this->announce = strip_tags($this->announce, self::ALLOW_TAGS);
 
