@@ -20,7 +20,7 @@ use Yii;
 class Post extends \yii\db\ActiveRecord
 {
 
-    const ALLOW_TAGS = "<div><a><h2><h3><h4><br><p><span><font><hr><strong><em><s><ul><li><ol><blockquote><table><th><td><tr><big><smile>";
+    const ALLOW_TAGS = "<div><img><a><h2><h3><h4><br><p><span><font><hr><strong><em><s><ul><li><ol><blockquote><table><th><td><tr><big><smile>";
 
     /**
      * @inheritdoc
