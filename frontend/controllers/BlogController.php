@@ -12,6 +12,7 @@ use common\models\Stage;
 use common\models\User;
 use common\models\User2position;
 use Faker\Factory;
+use frontend\models\CommentForm;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
@@ -64,13 +65,17 @@ class BlogController extends Controller
         $id =  \Yii::$app->request->getQueryParam('id');
         $login =  \Yii::$app->request->getQueryParam('user');
 
+        $commentForm = new CommentForm();
         if (!$id) throw new NotFoundHttpException();
 
         $post = $this->findModel($id);
         if ($post->user->login!=$login) throw new NotFoundHttpException();
 
+
+
         return $this->render('view', [
-            'model' => $post
+            'model' => $post,
+            'commentForm' => $commentForm
         ]);
 
     }
