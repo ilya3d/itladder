@@ -16,18 +16,6 @@ $js = <<<JS
                 $("#msg-comment").html("");
                 $.pjax.reload();
             });
-
-            $(".js_comment_editor").click( function(){
-                var comment_id = $(this).attr('comment');
-                var content = $('#comment_'+comment_id).text();
-                var textarea = document.createElement('textarea');
-
-                textarea.setAttribute('style','width:100%;');
-                textarea.innerHTML = content;
-                $('#comment_'+comment_id).html(textarea).focus();
-
-                $(this).hide();
-            });
         });
 
 JS;
@@ -50,24 +38,8 @@ $this->registerJs($js);
             <img src="<?= $avatar ?>" style="max-width: 64px; max-height: 64px;">
         </div>
         <div class="col-md-11 text-left">
-            <div class="col-md-12">
-                <div class="col-md-6 text-left">
-                    <p style="font-weight: bold"><?= $comment->user->login ?></p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <span style="font-size: 10px;">
-                    <?= Yii::$app->getFormatter()->asDatetime($comment->created_at,'php:d-m-Y H:i:s')  ?>
-                    </span>
-                    <? if (Yii::$app->user->identity->getId() == $comment->user_id): ?>
-                        <?= Html::a('[edit]','#',['class'=>'js_comment_editor','comment'=>$comment->id,'data-pjax'=>0]) ?>
-                    <? endif ?>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div id="comment_<?= $comment->id ?>" class="js_in_text col-md-12"><?= Html::decode($comment->text) ?></div>
-            </div>
+            <?= \frontend\widgets\CommentView::widget(['comment'=>$comment]) ?>
         </div>
-
     </div>
 <? endforeach ?>
 <? if (!Yii::$app->user->getIsGuest()): ?>

@@ -23,16 +23,6 @@ class CommentList extends Widget
      */
     public $post;
 
-    public function init() {
-        parent::init();
-
-        /*
-        $this->gridList = Grid::find()->all();
-        $this->groupList = Group::find()->all();
-        */
-
-    }
-
     public function run() {
 
         $commentForm = new CommentForm();
@@ -49,7 +39,6 @@ class CommentList extends Widget
 
             $comment->save();
         }
-
 
         return $this->render( 'CommentList', [
             'model' => $this->post,

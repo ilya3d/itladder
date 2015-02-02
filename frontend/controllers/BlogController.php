@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Comment;
 use common\models\Grid;
 use common\models\Position;
 use common\models\Post;
@@ -18,8 +19,10 @@ use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class BlogController extends Controller
 {
@@ -37,7 +40,7 @@ class BlogController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions'=>['index','view'],
+                        'actions'=>['index','view','edit-comment'],
                     ],
                     [
                         'allow' => true,
@@ -161,6 +164,26 @@ class BlogController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionEditComment()
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            $val = Yii::$app->request->post('val');
+            $comment_id = Yii::$app->request->post('comment_id');
+
+            $comment = Comment::findOne(['id'=>$comment_id,'user_id'=>Yii::$app->user->getId()]);
+            if (!$comment) {
+                throw new NotFoundHttpException('not found');
+            }
+
+            $comment->text = $val;
+            $comment->save();
+
+            return $res = ['text'=>$comment->text];
         }
     }
 
