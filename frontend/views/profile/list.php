@@ -21,6 +21,15 @@ use yii\grid\GridView;
             //'id',
             //'username',
             [
+                'label'=>'Photo',
+                'attribute'=>'photo',
+                'format' => 'html',
+                'value'=>function($searchModel){
+                    return Html::img(  $searchModel->photo ? Yii::getAlias('@web_uploads').DIRECTORY_SEPARATOR.$searchModel->photo  : '//placehold.it/64', ['style'=>'height: 64px;'] );
+                    //'max-width: 256px; max-height: 256px;'
+                }
+            ],
+            [
                 'label'=>'Username',
                 'attribute'=>'username',
                 'format' => 'html',
