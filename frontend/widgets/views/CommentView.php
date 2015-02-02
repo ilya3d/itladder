@@ -35,7 +35,7 @@ $js = <<<JS
                     $('#comment_'+comment_id).text(data.text);
                     $('.js_comment_editor[comment='+comment_id+']').show();
                     $('.js_save_comment[comment='+comment_id+']').hide();
-                },
+                }
             });
         });
     });
@@ -46,14 +46,16 @@ $this->registerJs($js);
 ?>
 <div class="col-md-12">
     <div class="col-md-6 text-left">
-        <p style="font-weight: bold"><?= $comment->user->login ?></p>
+        <p style="font-weight: bold">
+            <?= Html::a($comment->user->username,'/profile/'.$comment->user->login,['data-pjax'=>0]) ?>
+        </p>
     </div>
     <div class="col-md-6 text-right">
-                    <span style="font-size: 10px;">
-                    <?= Yii::$app->getFormatter()->asDatetime($comment->created_at,'php:d-m-Y H:i:s')  ?>
-                    </span>
+        <span style="font-size: 10px;">
+        <?= Yii::$app->getFormatter()->asDatetime($comment->created_at,'php:d-m-Y H:i:s')  ?>
+        </span>
         <? if (!Yii::$app->user->getIsGuest() && Yii::$app->user->identity->getId() == $comment->user_id): ?>
-            <?= Html::a('[edit]','#',['class'=>'js_comment_editor','comment'=>$comment->id,'data-pjax'=>0]) ?>
+            <?= Html::a(Yii::t('app/blog','edit'),'#',['class'=>'js_comment_editor','comment'=>$comment->id,'data-pjax'=>0]) ?>
         <? endif ?>
     </div>
 </div>
@@ -62,6 +64,6 @@ $this->registerJs($js);
 </div>
 <? if (!Yii::$app->user->getIsGuest() && Yii::$app->user->identity->getId() == $comment->user_id): ?>
 <div class="col-md-12">
-    <a class="js_save_comment" comment="<?= $comment->id ?>" style="display: none;padding-left: 15px;" href="#">save</a>
+    <a class="js_save_comment" comment="<?= $comment->id ?>" style="display: none;padding-left: 15px;" href="#"><?= Yii::t('app/blog','save')?></a>
 </div>
 <? endif ?>

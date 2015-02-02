@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Blog';
 <div class="blog-index">
     <? if (!Yii::$app->getUser()->isGuest && Yii::$app->getUser()->getIdentity()->login === Yii::$app->getRequest()->get('user')): ?>
     <div class="row" style="margin-bottom: 20px;">
-        <?= Html::a('Create post','/blog/'.Yii::$app->getUser()->getIdentity()->login.'/create',['class' => 'btn btn-success'])?>
+        <?= Html::a(Yii::t('app/blog','Create post'),'/blog/'.Yii::$app->getUser()->getIdentity()->login.'/create',['class' => 'btn btn-success'])?>
     </div>
     <? endif ?>
     <? if (!$dataProvider->count):?>
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Blog';
             </div>
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $item->user_id])): ?>
             <div class="col-md-3 text-right" style="margin-top: 10px;">
-                <?= Html::a('edit','/blog/'.$item->user->login.'/'.$item->id.'/update',['class' => 'btn btn-success'])?>
+                <?= Html::a(Yii::t('app/blog','edit'),'/blog/'.$item->user->login.'/'.$item->id.'/update',['class' => 'btn btn-success'])?>
             </div>
             <? endif ?>
         </div>
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = 'Blog';
             </div>
         </div>
         <div class="row">
-            <div><?= Html::a('readmore','/blog/'.$item->user->login.'/'.$item->id)?></div>
+            <div><?= Html::a(Yii::t('app/blog','readmore'),'/blog/'.$item->user->login.'/'.$item->id)?></div>
         </div>
     </div>
     <? endforeach ?>

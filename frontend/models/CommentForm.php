@@ -29,7 +29,7 @@ class CommentForm extends Model
     public function attributeLabels()
     {
         return [
-            'text' => 'Comment',
+            'text' => Yii::t('app/blog','Comment'),
         ];
     }
 

@@ -23,6 +23,7 @@ return [
                     'basePath' => dirname(dirname(__DIR__)).'/messages',
                     'fileMap' => [
                         'app/profile' => 'profile.php',
+                        'app/blog' => 'blog.php',
                     ],
                 ],
                 'eauth' => array(

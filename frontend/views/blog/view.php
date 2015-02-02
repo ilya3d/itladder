@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-3 text-right" style="margin-top: 10px; ">
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $model->user_id])): ?>
-            <?= Html::a('edit','/blog/'.$model->user->login.'/'.$model->id.'/update',['class' => 'btn btn-success'])?>
-            <?= Html::a('delete','/blog/'.$model->user->login.'/'.$model->id.'/delete',['class' => 'btn btn-danger','data' => [
+            <?= Html::a(Yii::t('app/blog','edit'),'/blog/'.$model->user->login.'/'.$model->id.'/update',['class' => 'btn btn-success'])?>
+            <?= Html::a(Yii::t('app/blog','delete'),'/blog/'.$model->user->login.'/'.$model->id.'/delete',['class' => 'btn btn-danger','data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ]])?>
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12">
             <?= $model->text ?>
         </div>
-        <div><?= Html::a('back','/blog/'.$model->user->login)?></div>
+        <div><?= Html::a(Yii::t('app/blog','back'),'/blog/'.$model->user->login)?></div>
     </div>
     <div>
         <?= \frontend\widgets\CommentList::widget(['post'=>$model]); ?>

@@ -26,7 +26,7 @@ $this->registerJs($js);
 <?php $form = ActiveForm::begin(['id' => 'comment-form','options' => ['data-pjax' => true ]]); ?>
 <? if ($model->comments):?>
     <div class="row">
-        <h3>Comments</h3>
+        <h3><?= Yii::t('app/blog','Comments') ?></h3>
     </div>
 <? endif ?>
 <? foreach($model->comments as $comment): ?>
@@ -48,7 +48,7 @@ $this->registerJs($js);
         <?= $form->field($commentForm, 'text')->textarea(['id'=>'msg-comment']) ?>
     </div>
     <div class="col-md-4 text-left">
-        <?= Html::submitButton('Send', ['class' => 'btn btn-success', 'name' => 'send-button', 'data-pjax' => '0']) ?>
+        <?= Html::submitButton(Yii::t('app/blog','send'), ['class' => 'btn btn-success', 'name' => 'send-button', 'data-pjax' => '0']) ?>
     </div>
 </div>
 <? endif ?>
