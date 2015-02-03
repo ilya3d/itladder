@@ -67,7 +67,7 @@ class ProfileController extends Controller
         $positions = User2position::find()
             ->with( 'position' )
             ->where( ['user_id'=>$user->id, 'status'=>User2position::STATUS_COMPLETE] )
-            ->orderBy(['date_change'=>'ASC'])
+            ->orderBy(['date_change'=>'DESC'])
             ->all();
 
         if ($user->getCurrentPosition()){
