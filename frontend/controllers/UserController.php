@@ -210,6 +210,24 @@ class UserController extends Controller
         return $this->redirect(['view', 'id' => $id]);
     }
 
+
+    public function actionModeration( $id ) {
+
+        $user = User::findOne(['id'=>$id]);
+
+        if ( $user ) {
+
+            if ( $user->role == User::ROLE_ADMIN )
+                $user->role = User::ROLE_USER;
+            else
+                $user->role = User::ROLE_ADMIN;
+
+            $user->save();
+        }
+
+        return $this->redirect(['view', 'id' => $id]);
+    }
+
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
