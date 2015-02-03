@@ -40,7 +40,7 @@ class BlogController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions'=>['index','view','edit-comment'],
+                        'actions'=>['index','view','list','edit-comment'],
                     ],
                     [
                         'allow' => true,
@@ -61,6 +61,19 @@ class BlogController extends Controller
                 ]
             ]
         ];
+    }
+
+    public function actionList()
+    {
+        $query = Post::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionView()
@@ -181,6 +194,7 @@ class BlogController extends Controller
             }
 
             $comment->text = $val;
+            $comment->updated_at = time();
             $comment->save();
 
             return $res = ['text'=>$comment->text];

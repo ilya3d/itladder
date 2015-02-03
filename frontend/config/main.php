@@ -83,6 +83,8 @@ return [
                 'profile' => 'profile/list',
                 'profile/<user:[\w\.]+>' => 'profile/index',
                 'profile/<user:[\w\.]+>/edit' => 'profile/edit',
+
+                'blog' => 'blog/list',
                 'blog/<user:[\w\.]+>/create' => 'blog/create',
                 'blog/<user:[\w\.]+>/<id:\w+>/update' => 'blog/update',
                 'blog/<user:[\w\.]+>/<id:\w+>/delete' => 'blog/delete',
