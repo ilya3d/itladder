@@ -170,24 +170,21 @@ class ProfileController extends Controller
 
     public function actionList()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-        $users = User::find()->all();
+
+        $users = User::find()->where(['status'=>User::STATUS_ACTIVE])->all();
 
         $list = [];
         /** @var /common/models/User $user */
         foreach ( $users as $user ) {
 
             if ( !$user->group )
-                $list['none'][] = $user;
+                $list[''][] = $user;
             else
                 $list[$user->group->name][] = $user;
 
         }
 
         return $this->render('list', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'list' => $list
         ]);
 
