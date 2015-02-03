@@ -51,6 +51,7 @@ AppAsset::register($this);
     if (\Yii::$app->user->can('user')) {
         $menuItems = [
             ['label' => Yii::t('app/menu','Users'), 'url' => ['/profile']],
+            ['label' => Yii::t('app/profile','All blog'), 'url' => ['/blog/list']],
         ];
     }
 

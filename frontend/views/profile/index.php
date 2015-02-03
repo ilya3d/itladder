@@ -19,7 +19,6 @@ $this->title = $user->username;
             <h1><?= Html::encode($user->username);?></h1>
         </div>
         <div class="col-md-4 text-right">
-            <?= Html::a( Yii::t('app/profile','All blog'), [ 'blog/list'], ['class' => 'btn btn-warning'] ) ?>
             <?= Html::a( Yii::t('app/profile','Blog'), [ 'blog/' . $user->login], ['class' => 'btn btn-warning'] ) ?>
 
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])): ?>
