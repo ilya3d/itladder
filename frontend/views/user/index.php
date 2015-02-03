@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\UserSearch */
@@ -22,10 +23,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($model, $index, $widget, $grid) {
+
+            if ( $model->status == User::STATUS_DISABLED ) {
+                return ['class' => 'warning'];
+            } elseif ( $model->role == User::ROLE_ADMIN || $model->role == User::ROLE_MODER ) {
+                return [ 'class' => 'info' ];
+            } elseif ( $model->status == User::STATUS_NEW ) {
+                return ['class' => 'success'];
+            }
+
+            return [];
+        },
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'username',
             [
                 'attribute'=>'login',

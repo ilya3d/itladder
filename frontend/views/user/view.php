@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -25,6 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
         <?= Html::a('Add resource', ['rules', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Up position', ['uppos', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(
+            $model->role == User::ROLE_USER ? 'Give Moder' : 'Cancel Moder',
+            [ 'moderation', 'id' => $model->id],
+            ['class' => 'btn btn-success']
+        )
+        ?>
     </p>
     <?= DetailView::widget([
         'model' => $model,
