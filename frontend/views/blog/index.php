@@ -42,9 +42,13 @@ $this->params['breadcrumbs'][] = 'Blog';
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-6"><?= Html::a(Yii::t('app/blog','readmore'),'/blog/'.$item->user->login.'/'.$item->id)?></div>
             <div class="col-md-6 text-right">
-                <?= Html::a(($item->user->username)?$item->user->username:$item->user->login, 'profile/'.$item->user->login) ?>
+                <?= Html::a(($item->user->username)?$item->user->username:$item->user->login, '/profile/'.$item->user->login) ?>
             </div>
         </div>
     </div>
     <? endforeach ?>
+    <div class="row">
+        <?= \yii\widgets\LinkPager::widget([
+            'pagination' => $dataProvider->pagination]) ?>
+    </div>
 </div>

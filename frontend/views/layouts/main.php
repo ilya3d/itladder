@@ -36,6 +36,7 @@ AppAsset::register($this);
     if (\Yii::$app->user->can('dashboad')) {
         $menuItems = [
             ['label' => Yii::t('app/menu','Users'), 'url' => ['/user/index']],
+            ['label' => Yii::t('app/profile','All blog'), 'url' => ['/blog/list']],
             ['label' => Yii::t('app/menu','Mailer'), 'url' => ['/mailer/index']],
             ['label' => Yii::t('app/menu','Tools'), 'url' => ['/tools/index'], 'items' =>[
                 ['label' => Yii::t('app/menu','Grid'), 'url' => ['/grid/index']],
@@ -51,6 +52,7 @@ AppAsset::register($this);
     if (\Yii::$app->user->can('user')) {
         $menuItems = [
             ['label' => Yii::t('app/menu','Users'), 'url' => ['/profile']],
+            ['label' => Yii::t('app/profile','All blog'), 'url' => ['/blog/list']],
         ];
     }
 

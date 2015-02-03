@@ -15,10 +15,10 @@ $this->title = $user->username;
 <div class="container">
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <h1><?= Html::encode($user->username);?></h1>
         </div>
-        <div class="col-md-3 text-right">
+        <div class="col-md-4 text-right">
             <?= Html::a( Yii::t('app/profile','Blog'), [ 'blog/' . $user->login], ['class' => 'btn btn-warning'] ) ?>
 
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])): ?>
