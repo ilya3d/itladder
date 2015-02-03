@@ -47,4 +47,8 @@ $this->params['breadcrumbs'][] = 'Blog';
         </div>
     </div>
     <? endforeach ?>
+    <div class="row">
+        <?= \yii\widgets\LinkPager::widget([
+            'pagination' => $dataProvider->pagination]) ?>
+    </div>
 </div>

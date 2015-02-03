@@ -69,6 +69,7 @@ class BlogController extends Controller
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 10]
         ]);
 
         return $this->render('index', [
@@ -108,6 +109,7 @@ class BlogController extends Controller
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 10]
         ]);
 
         return $this->render('index', [
