@@ -172,10 +172,23 @@ class ProfileController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        $users = User::find()->all();
+
+        $list = [];
+        /** @var /common/models/User $user */
+        foreach ( $users as $user ) {
+
+            if ( !$user->group )
+                $list['none'][] = $user;
+            else
+                $list[$user->group->name][] = $user;
+
+        }
 
         return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'list' => $list
         ]);
 
     }

@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
             'username',
             [
                 'attribute'=>'login',
@@ -68,12 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'form-control']
                 )
             ],
-             //'status',
-            // 'created_at',
-            // 'register_at',
-            // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template'=> '{view}'],
         ],
     ]); ?>
 
