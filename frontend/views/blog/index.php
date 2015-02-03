@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = 'Blog';
 
     <? foreach($dataProvider->getModels() as $item): ?>
     <?    /** @var Post $item */ ?>
-    <div class="row" style="background-color: #F5F5F5; padding: 10px 30px 20px 30px;margin-bottom: 30px; border: 1px dotted;" >
+    <div class="row" style="background-color: #F5F5F5; padding: 10px 30px 10px 30px;margin-bottom: 30px; border: 1px dotted;" >
         <div class="row">
             <div class="col-md-9">
                 <h2 style="margin-top: 10px;"><?= $item->title ?></h2>
@@ -39,8 +39,11 @@ $this->params['breadcrumbs'][] = 'Blog';
                 <?= $item->announce ?>
             </div>
         </div>
-        <div class="row">
-            <div><?= Html::a(Yii::t('app/blog','readmore'),'/blog/'.$item->user->login.'/'.$item->id)?></div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-6"><?= Html::a(Yii::t('app/blog','readmore'),'/blog/'.$item->user->login.'/'.$item->id)?></div>
+            <div class="col-md-6 text-right">
+                <?= Html::a(($item->user->username)?$item->user->username:$item->user->login, 'profile/'.$item->user->login) ?>
+            </div>
         </div>
     </div>
     <? endforeach ?>
