@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Feed;
 use common\models\Grid;
 use common\models\Position;
 use common\models\Profession;
@@ -67,7 +68,7 @@ class ProfileController extends Controller
         $positions = User2position::find()
             ->with( 'position' )
             ->where( ['user_id'=>$user->id, 'status'=>User2position::STATUS_COMPLETE] )
-            ->orderBy(['date_change'=>'DESC'])
+            ->orderBy(['date_change'=>SORT_DESC])
             ->all();
 
         if ($user->getCurrentPosition()){
@@ -90,7 +91,8 @@ class ProfileController extends Controller
         return $this->render('index',[
             'user'=>$user,
             'positions'=>$positions,
-            'resource'=>$resource
+            'resource'=>$resource,
+            'feed'=> Feed::forUser( $user->id )
         ]);
     }
 

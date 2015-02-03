@@ -4,6 +4,7 @@
  * @var $user \common\models\User
  * @var $positions \common\models\User2position
  * @var $resource \common\models\Resource2position
+ * @var $feed \common\models\Feed[]
 */
 use yii\helpers\Html;
 
@@ -95,6 +96,20 @@ $this->title = $user->username;
 
             <!-- Tab panes -->
             <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="feed">
+
+                    <? foreach( $feed as $msg):?>
+                    <div class="row" style="background-color: #F5F5F5;margin-bottom: 30px; border: 1px dotted;">
+                        <div class="col-md-2">
+                            <?= $msg->date ?>
+                        </div>
+                        <div class="col-md-10">
+                            <?= $msg->text ?>
+                        </div>
+                    </div>
+                    <? endforeach ?>
+
+                </div>
                 <div role="tabpanel" class="tab-pane" id="ladder">
 
                     <div class="list-group">
@@ -142,7 +157,6 @@ $this->title = $user->username;
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="skills"></div>
-                <div role="tabpanel" class="tab-pane active" id="feed"></div>
                 <div role="tabpanel" class="tab-pane" id="other"></div>
             </div>
 
