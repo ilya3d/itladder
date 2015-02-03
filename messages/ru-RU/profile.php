@@ -1,5 +1,20 @@
 <?php
 return [
     'Group' => 'Команда',
-    'Position' => 'Позиция'
+    'Position' => 'Позиция',
+    'Stage' => 'Ступень',
+    'E-mail' => 'E-mail',
+    'Address' => 'Адрес',
+    'ICQ' => 'ICQ',
+    'Skype' => 'Skype',
+    'Phone' => 'Телефон',
+    'Birthday' => 'Дата рождения',
+    'Contact Information' => 'Контактная информация',
+    'Profession skill' => 'Проф. навыки',
+    'Position stage' => 'Проф. развитие',
+    'Events' => 'События',
+    'Other' => 'Другое',
+    'Blog' => 'Блог',
+    'Edit' => 'Редактировать',
+    'Save' => 'Сохранить',
 ];

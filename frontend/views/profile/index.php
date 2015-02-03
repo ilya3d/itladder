@@ -19,10 +19,10 @@ $this->title = $user->username;
             <h1><?= Html::encode($user->username);?></h1>
         </div>
         <div class="col-md-3 text-right">
-            <?= Html::a('Blog', [ 'blog/' . $user->login], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a( Yii::t('app/profile','Blog'), [ 'blog/' . $user->login], ['class' => 'btn btn-warning'] ) ?>
 
             <? if (\Yii::$app->user->can('updateOwnProfile', ['profileId' => $user->id])): ?>
-            <?= Html::a('Edit', [ 'profile/' . $user->login . '/edit'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a( Yii::t('app/profile','Edit'), [ 'profile/' . $user->login . '/edit'], ['class' => 'btn btn-success'] ) ?>
             <? endif ?>
         </div>
     </div>
@@ -53,30 +53,30 @@ $this->title = $user->username;
                 </div>
             </div>
             <div class="form-group">
-                Birthday: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
+                <?= Yii::t('app/profile','Birthday') ?>: <?= Yii::$app->getFormatter()->asDatetime($user->birthday, 'php:d.m.Y') ?>
             </div>
 
-            <h4>Contact Information</h4>
+            <h4><?= Yii::t('app/profile','Contact Information') ?></h4>
 
             <table class="table table-striped">
                 <tr>
-                    <td>E-mail</td>
+                    <td><?= Yii::t('app/profile','E-mail') ?></td>
                     <td><?= Html::encode($user->email) ?></td>
                 </tr>
                 <tr>
-                    <td>Phone</td>
+                    <td><?= Yii::t('app/profile','Phone') ?></td>
                     <td><?= Html::encode($user->phone) ?></td>
                 </tr>
                 <tr>
-                    <td>Skype</td>
+                    <td><?= Yii::t('app/profile','Skype') ?></td>
                     <td><?= Html::encode($user->skype) ?></td>
                 </tr>
                 <tr>
-                    <td>ICQ</td>
+                    <td><?= Yii::t('app/profile','ICQ') ?></td>
                     <td><?= Html::encode($user->icq) ?></td>
                 </tr>
                 <tr>
-                    <td>Address</td>
+                    <td><?= Yii::t('app/profile','Address') ?></td>
                     <td><?= Html::encode($user->address) ?></td>
                 </tr>
             </table>
@@ -87,10 +87,10 @@ $this->title = $user->username;
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#ladder" aria-controls="ladder" role="tab" data-toggle="tab">Position skill</a></li>
-                <li role="presentation" class="disabled"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Profession skill</a></li>
-                <li role="presentation" class="disabled"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
-                <li role="presentation" class="disabled"><a href="#other" aria-controls="other" role="tab" data-toggle="tab">Other</a></li>
+                <li role="presentation" class="active"><a href="#ladder" aria-controls="ladder" role="tab" data-toggle="tab"><?= Yii::t('app/profile','Position stage') ?></a></li>
+                <li role="presentation" class="disabled"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab"><?= Yii::t('app/profile','Profession skill') ?></a></li>
+                <li role="presentation" class="disabled"><a href="#events" aria-controls="events" role="tab" data-toggle="tab"><?= Yii::t('app/profile','Events') ?></a></li>
+                <li role="presentation" class="disabled"><a href="#other" aria-controls="other" role="tab" data-toggle="tab"><?= Yii::t('app/profile','Other') ?></a></li>
             </ul>
 
             <!-- Tab panes -->

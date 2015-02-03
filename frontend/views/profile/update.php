@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <h4>Contact Information</h4>
+            <h4><?= Yii::t('app/profile','Contact Information') ?></h4>
 
             <?= $this->render('_form', [
                 'model' => $user,

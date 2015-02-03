@@ -35,31 +35,31 @@ AppAsset::register($this);
 
     if (\Yii::$app->user->can('dashboad')) {
         $menuItems = [
-            ['label' => 'Users', 'url' => ['/user/index']],
-            ['label' => 'Mailer', 'url' => ['/mailer/index']],
-            ['label' => 'Tools', 'url' => ['/tools/index'], 'items' =>[
-                ['label' => 'Grid', 'url' => ['/grid/index']],
-                ['label' => 'Stage', 'url' => ['/stage/index']],
-                ['label' => 'Position', 'url' => ['/position/index']],
-                ['label' => 'Group', 'url' => ['/group/index']],
-                ['label' => 'Profession', 'url' => ['/profession/index']],
-                ['label' => 'Resource', 'url' => ['/resource/index']],
+            ['label' => Yii::t('app/menu','Users'), 'url' => ['/user/index']],
+            ['label' => Yii::t('app/menu','Mailer'), 'url' => ['/mailer/index']],
+            ['label' => Yii::t('app/menu','Tools'), 'url' => ['/tools/index'], 'items' =>[
+                ['label' => Yii::t('app/menu','Grid'), 'url' => ['/grid/index']],
+                ['label' => Yii::t('app/menu','Stage'), 'url' => ['/stage/index']],
+                ['label' => Yii::t('app/menu','Position'), 'url' => ['/position/index']],
+                ['label' => Yii::t('app/menu','Group'), 'url' => ['/group/index']],
+                ['label' => Yii::t('app/menu','Profession'), 'url' => ['/profession/index']],
+                ['label' => Yii::t('app/menu','Resource'), 'url' => ['/resource/index']],
             ]],
 
         ];
     } else
     if (\Yii::$app->user->can('user')) {
         $menuItems = [
-            ['label' => 'Users', 'url' => ['/profile']],
+            ['label' => Yii::t('app/menu','Users'), 'url' => ['/profile']],
         ];
     }
 
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => Yii::t('app/menu','Signup'), 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => Yii::t('app/menu','Login'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = [
-            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+            'label' => Yii::t('app/menu','Logout') . ' (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];

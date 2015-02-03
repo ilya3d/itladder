@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'file')->label('photo')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton( Yii::t('app/profile','Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

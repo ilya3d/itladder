@@ -22,6 +22,7 @@ return [
                     'sourceLanguage' => 'en-US',
                     'basePath' => dirname(dirname(__DIR__)).'/messages',
                     'fileMap' => [
+                        'app/menu' => 'menu.php',
                         'app/profile' => 'profile.php',
                         'app/blog' => 'blog.php',
                     ],
