@@ -36,7 +36,7 @@ class Feed extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'auth_id', 'title', 'text', 'value', 'link', 'type', 'level'], 'required'],
+            //[['user_id', 'auth_id', 'title', 'text', 'value', 'link', 'type', 'level'], 'required'],
             [['user_id', 'auth_id', 'grid_id', 'profession_id', 'type', 'level'], 'integer'],
             [['text'], 'string'],
             [['date'], 'safe'],
@@ -74,4 +74,17 @@ class Feed extends \yii\db\ActiveRecord
 
         return self::find()->orderBy( ['date'=>SORT_DESC] )->limit(20)->all();
     }
+
+    public static function add( $title, $text, $user = 0 ) {
+
+        $feed = new self();
+        $feed->title = $title;
+        $feed->text = $text;
+        $feed->user_id = $user;
+        $feed->auth_id = Yii::$app->getUser()->id;
+        $feed->date = (new \DateTime( 'now', new \DateTimeZone('Europe/Moscow') ) )->format('Y-m-d H:i:s');
+
+        $feed->save();
+    }
+
 }

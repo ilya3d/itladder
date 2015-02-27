@@ -488,4 +488,20 @@ class User extends ActiveRecord implements IdentityInterface
 
     }
 
+
+    public static function getList( $bWithAll = false ) {
+
+        $users = User::find();
+        $out = [];
+
+        if ( $bWithAll )
+            $out[0] = '--- all ---';
+
+        foreach ( $users->each() as $user ) {
+            $out[$user->id] = $user->username;
+        }
+
+        return $out;
+    }
+
 }
