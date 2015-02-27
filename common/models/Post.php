@@ -12,6 +12,7 @@ use Yii;
  * @property string $title
  * @property string $text
  * @property string $announce
+ * @property string $tags
  * @property integer $created_at
  * @property integer $updated_at
  *
@@ -39,7 +40,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['user_id', 'title', 'text', 'announce'], 'required'],
             [['user_id', 'created_at', 'updated_at'], 'integer'],
-            [['text', 'announce'], 'string'],
+            [['text', 'announce', 'tags'], 'string'],
             [['title'], 'string', 'max' => 255],
             [['created_at','updated_at'],'safe']
         ];
@@ -58,6 +59,7 @@ class Post extends \yii\db\ActiveRecord
             'announce' => 'Announce',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'tags' => 'Tags'
         ];
     }
 

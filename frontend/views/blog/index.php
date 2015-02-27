@@ -45,6 +45,17 @@ $this->params['breadcrumbs'][] = 'Blog';
                 <?= Html::a(($item->user->username)?$item->user->username:$item->user->login, '/profile/'.$item->user->login) ?>
             </div>
         </div>
+        <? if ($item->tags): ?>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-12">
+                <?  $tags = explode(',',$item->tags); ?>
+                <i class="glyphicon glyphicon-tags"></i>
+                <? foreach($tags as $tag): ?>
+                    <?= Html::a($tag,['/blog','tag'=>$tag],['style'=>'margin-left:7px;']) ?>
+                <? endforeach ?>
+            </div>
+        </div>
+        <? endif ?>
     </div>
     <? endforeach ?>
     <div class="row">

@@ -32,6 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div><?= Html::a(Yii::t('app/blog','back'),'/blog/'.$model->user->login)?></div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <i class="glyphicon glyphicon-tags"></i>
+            <?  $tags = explode(',',$model->tags);
+                foreach($tags as $tag): ?>
+            <?= Html::a($tag,['/blog','tag'=>$tag],['style'=>'margin-left:7px;']) ?>
+            <? endforeach ?>
+        </div>
+    </div>
     <div>
         <?= \frontend\widgets\CommentList::widget(['post'=>$model]); ?>
     </div>

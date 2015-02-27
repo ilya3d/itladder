@@ -67,6 +67,11 @@ class BlogController extends Controller
     {
         $query = Post::find();
 
+        $tag = Yii::$app->request->get('tag','');
+        if ($tag){
+            $query->andWhere(['like', 'tags', $tag]);
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => ['pageSize' => 10]
